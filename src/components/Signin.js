@@ -1,23 +1,10 @@
+// TODO: MAKE PROTECTED ROUTE FOR ONLY NON SIGNED IN USERS
+
 import React, { useState, useEffect } from "react";
 import client from "../feathers";
 
-export default function Signup() {
+export default function Signin() {
     const usersService = client.service("users");
-
-    const [loggedIn, setLoggedIn] = useState(false);
-
-    async function init() {
-        try {
-            console.log(await client.authenticate());
-        } catch (err) {
-            console.log(err);
-            setLoggedIn(false);
-        }
-    }
-
-    useEffect(() => {
-        init();
-    }, []);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -30,25 +17,26 @@ export default function Signup() {
         setPassword(e.target.value);
     };
 
-    const signup = async (e) => {
+    const signin = async (e) => {
         e.preventDefault();
         // console.log("attempted sign up");
         try {
-            let user = await usersService.create({
+            let user = await client.authenticate({
+                strategy: "local",
                 email,
                 password,
             });
-
             console.log(user);
+            window.location = "./";
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
         }
     };
 
     return (
         <div>
-            <h1>Sign Up</h1>
-            <form onSubmit={signup}>
+            <h1>Sign In</h1>
+            <form onSubmit={signin}>
                 <label>Email: </label>
                 <input type="text" value={email} onChange={updateEmailValue} />
                 <label>Password: </label>
@@ -57,7 +45,7 @@ export default function Signup() {
                     value={password}
                     onChange={updatePasswordValue}
                 />
-                <button type="submit">Sign Up</button>
+                <button type="submit">Sign In</button>
             </form>
         </div>
     );

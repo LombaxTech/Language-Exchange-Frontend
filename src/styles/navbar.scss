@@ -1,0 +1,11 @@
+.title {
+    flex-grow: 1;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+root {
+    flex-grow: 1;
+}
