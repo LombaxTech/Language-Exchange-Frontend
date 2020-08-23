@@ -67,12 +67,13 @@ export default function Navbar() {
         <div className="root">
             <AppBar position="static">
                 <Toolbar>
-                    <Typography
-                        variant="h6"
-                        className="title"
-                        onClick={() => (window.location = "/")}
-                    >
-                        HT CLONE
+                    <Typography variant="h6" className="title">
+                        <div
+                            onClick={() => (window.location = "/")}
+                            className="title-text"
+                        >
+                            HT CLONE
+                        </div>
                     </Typography>
                     {!loggedIn && (
                         <Button

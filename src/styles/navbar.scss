@@ -1,9 +1,12 @@
 .title {
     flex-grow: 1;
+}
 
+.title-text {
     &:hover {
         cursor: pointer;
     }
+    width: fit-content;
 }
 
 root {

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import client from "../feathers";
 import { Link } from "react-router-dom";
 
-import Navbar from "./Navbar";
-import Signout from "./Signout";
+import AllUsers from "./AllUsers";
 
 export default function Home() {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -26,16 +25,8 @@ export default function Home() {
 
     return (
         <div>
-            Home
-            {!loggedIn && (
-                <div>
-                    <Link style={{ display: "block" }} to="/signup">
-                        Sign Up
-                    </Link>
-                    <Link to="/signin">Sign In</Link>
-                </div>
-            )}
-            {loggedIn && <Signout />}
+            <h1>Home</h1>
+            <AllUsers />
         </div>
     );
 }
