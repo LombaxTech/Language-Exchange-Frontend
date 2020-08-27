@@ -3,6 +3,7 @@ import client from "../feathers";
 import { Link } from "react-router-dom";
 
 import AllUsers from "./AllUsers";
+import AddPost from "./AddPost";
 
 export default function Home() {
     const [loggedIn, setLoggedIn] = useState(false);

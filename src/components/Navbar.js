@@ -9,6 +9,9 @@ import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import AddCommentOutlinedIcon from "@material-ui/icons/AddCommentOutlined";
+
+import AddPost from "./AddPost";
 
 import "../styles/navbar.scss";
 
@@ -85,6 +88,8 @@ export default function Navbar() {
                     )}
                     {loggedIn && (
                         <div>
+                            {/* <AddCommentOutlinedIcon className="add-post" /> */}
+                            <AddPost />
                             <IconButton
                                 edge="end"
                                 aria-label="account of current user"
