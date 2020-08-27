@@ -27,7 +27,9 @@ export default function UserProfilePage({ match }) {
         try {
             let posts = await postsService.find({
                 query: {
-                    userId: currentPageUserId,
+                    user: {
+                        _id: currentPageUserId,
+                    },
                 },
             });
             console.log(posts.data);

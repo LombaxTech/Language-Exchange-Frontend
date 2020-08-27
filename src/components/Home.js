@@ -3,7 +3,7 @@ import client from "../feathers";
 import { Link } from "react-router-dom";
 
 import AllUsers from "./AllUsers";
-import AddPost from "./AddPost";
+import AllPosts from "./AllPosts";
 
 export default function Home() {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -27,7 +27,10 @@ export default function Home() {
     return (
         <div>
             <h1>Home</h1>
-            <AllUsers />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <AllUsers />
+                <AllPosts />
+            </div>
         </div>
     );
 }
