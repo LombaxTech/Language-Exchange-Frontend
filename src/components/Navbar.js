@@ -11,6 +11,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AddCommentOutlinedIcon from "@material-ui/icons/AddCommentOutlined";
 
+import { Avatar } from "@material-ui/core";
+
 import AddPost from "./AddPost";
 
 import "../styles/navbar.scss";
@@ -79,12 +81,20 @@ export default function Navbar() {
                         </div>
                     </Typography>
                     {!loggedIn && (
-                        <Button
-                            color="inherit"
-                            onClick={() => (window.location = "/signin")}
-                        >
-                            Login
-                        </Button>
+                        <div>
+                            <Button
+                                color="inherit"
+                                onClick={() => (window.location = "/signin")}
+                            >
+                                Login
+                            </Button>
+                            <Button
+                                color="inherit"
+                                onClick={() => (window.location = "/signup")}
+                            >
+                                SIGN UP
+                            </Button>
+                        </div>
                     )}
                     {loggedIn && (
                         <div>
@@ -97,7 +107,12 @@ export default function Navbar() {
                                 color="inherit"
                                 onClick={handleProfileMenuOpen}
                             >
-                                <AccountCircle />
+                                <Avatar
+                                    alt="Sheldon Cooper"
+                                    src={user.profilePictureId}
+                                    style={{ alignSelf: "center" }}
+                                />
+                                {/* <AccountCircle /> */}
                             </IconButton>
                         </div>
                     )}
