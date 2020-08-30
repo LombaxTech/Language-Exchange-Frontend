@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import client from "../feathers";
+import { Image, Transformation } from "cloudinary-react";
 
 export default function UserProfilePage({ match }) {
     const currentPageUserId = match.params.userId;
@@ -47,6 +48,17 @@ export default function UserProfilePage({ match }) {
     return (
         <div>
             <h1>{currentPageUser.name}</h1>
+            <Image src={currentPageUser.profilePictureId} height={100}>
+                <Transformation
+                    width="100"
+                    height="100"
+                    gravity="face"
+                    radius="max"
+                    crop="crop"
+                />
+                <Transformation width="200" crop="scale" />
+            </Image>
+
             <ul>
                 {posts.map((post) => (
                     <li key={post._id} style={{ margin: "20px" }}>

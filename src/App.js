@@ -18,6 +18,7 @@ export default function App() {
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/signin" component={Signin} />
                 <Route exact path="/user/:userId" component={UserProfilePage} />
+                <Route exact path="/profile" component={Profile} />
             </Switch>
         </Router>
     );

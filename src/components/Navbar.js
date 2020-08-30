@@ -56,7 +56,13 @@ export default function Navbar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem
+                onClick={async () => {
+                    window.location = "/profile";
+                }}
+            >
+                Profile
+            </MenuItem>
             <MenuItem
                 onClick={async () => {
                     await client.logout();
