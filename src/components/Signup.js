@@ -8,12 +8,15 @@ import {
     MenuItem,
     TextField,
     Input,
+    CircularProgress,
 } from "@material-ui/core";
 
 const cloudName = "dhrowvziz";
 
 export default function Signup() {
     const usersService = client.service("users");
+
+    const [loading, setLoading] = useState(false);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -51,6 +54,7 @@ export default function Signup() {
     const signup = async (e) => {
         e.preventDefault();
         // return console.log({ email, password, file });
+        setLoading(true);
         try {
             let user = await usersService.create({
                 email,
@@ -81,12 +85,18 @@ export default function Signup() {
                 profilePictureId: secure_url,
             });
             console.log(user);
-
+            setLoading(false);
+            window.location = "/";
             // * END OF GET USER PROFILE IMAGE
         } catch (error) {
             console.log(error.message);
+            setLoading(false);
         }
     };
+
+    if (loading) {
+        return <CircularProgress />;
+    }
 
     return (
         <div>

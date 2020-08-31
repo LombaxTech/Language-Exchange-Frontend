@@ -1,0 +1,16 @@
+.post {
+    border: 0.5px solid black;
+    padding: 10px;
+    margin: 10px;
+    height: fit-content;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.post-info {
+    padding: 5px;
+}

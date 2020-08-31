@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import client from "../feathers";
 import { Image, Transformation } from "cloudinary-react";
+import Post from "./Post";
 
 export default function UserProfilePage({ match }) {
     const currentPageUserId = match.params.userId;
@@ -8,33 +9,25 @@ export default function UserProfilePage({ match }) {
     const usersService = client.service("users");
     const postsService = client.service("posts");
 
+    const [user, setUser] = useState({});
     const [currentPageUser, setCurrentPageUser] = useState({});
+    const [posts, setPosts] = useState([]);
 
     async function init() {
         try {
-            let user = await usersService.get({
-                _id: currentPageUserId,
-            });
-            console.log(user);
-            setCurrentPageUser(user);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+            let currentUser = await usersService.get(currentPageUserId);
+            setCurrentPageUser(currentUser);
 
-    const [posts, setPosts] = useState([]);
+            let user = await client.authenticate();
+            user = user.user;
+            setUser(user);
 
-    async function fetchUsersPosts() {
-        try {
-            let posts = await postsService.find({
-                query: {
-                    user: {
-                        _id: currentPageUserId,
-                    },
-                },
-            });
-            console.log(posts.data);
-            setPosts(posts.data);
+            let posts = await fetch(
+                `http://localhost:3030/custom-posts/${currentUser._id}`
+            );
+            posts = await posts.json();
+            setPosts(posts);
+            console.log(posts);
         } catch (error) {
             console.log(error);
         }
@@ -42,37 +35,30 @@ export default function UserProfilePage({ match }) {
 
     useEffect(() => {
         init();
-        fetchUsersPosts();
     }, []);
 
     return (
         <div>
             <h1>{currentPageUser.name}</h1>
-            <Image src={currentPageUser.profilePictureId} height={100}>
-                <Transformation
-                    width="100"
-                    height="100"
-                    gravity="face"
-                    radius="max"
-                    crop="crop"
-                />
-                <Transformation width="200" crop="scale" />
-            </Image>
+            <Image src={currentPageUser.profilePictureId} height={100} />
 
-            <ul>
-                {posts.map((post) => (
-                    <li key={post._id} style={{ margin: "20px" }}>
-                        {currentPageUser.name} | Created at: {post.createdAt}{" "}
-                        <br />
-                        {post.text} <br />
-                        likes: {post.likes.length} <br />
-                        comments:{" "}
-                        {post.comments.map((comment) => (
-                            <p>{comment}</p>
-                        ))}
-                    </li>
-                ))}
-            </ul>
+            <h2>Message</h2>
+            <h2>Follow</h2>
+
+            {posts.map((post) => (
+                <Post
+                    key={post._id}
+                    profilePictureId={post.user.profilePictureId}
+                    name={post.user.name}
+                    createdAt={post.createdAt}
+                    postText={post.text}
+                    numberOfComments={post.comments.length}
+                    numberOfLikes={post.likes.length}
+                    isOwnPost={post.user._id === user._id}
+                    postId={post._id}
+                    user={post.user}
+                />
+            ))}
             {posts.length === 0 && <h2>No posts to show...</h2>}
         </div>
     );

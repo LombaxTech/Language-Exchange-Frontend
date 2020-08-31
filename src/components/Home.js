@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import AllUsers from "./AllUsers";
 import AllPosts from "./AllPosts";
 
+import Post from "./Post";
+
 export default function Home() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState({});

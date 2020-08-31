@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import client from "../feathers";
 import { Link } from "react-router-dom";
 
+import UserCard from "./UserCard";
+
 export default function AllUsers() {
     const usersService = client.service("users");
 
@@ -25,7 +27,7 @@ export default function AllUsers() {
     return (
         <div>
             <h1>All Users</h1>
-            <ul>
+            {/* <ul>
                 {users.map((user) => (
                     <li key={user._id} style={{ margin: "10px" }}>
                         <Link to={`/user/${user._id}`}>
@@ -35,7 +37,17 @@ export default function AllUsers() {
                         </Link>
                     </li>
                 ))}
-            </ul>
+            </ul> */}
+            {users.map((user) => (
+                <UserCard
+                    key={user._id}
+                    userId={user._id}
+                    name={user.name}
+                    profilePictureId={user.profilePictureId}
+                    nativeLanguage={user.nativeLanguage}
+                    targetLanguage={user.targetLanguage}
+                />
+            ))}
         </div>
     );
 }
