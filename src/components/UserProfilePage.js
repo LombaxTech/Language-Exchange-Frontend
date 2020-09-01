@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import client from "../feathers";
 import { Image, Transformation } from "cloudinary-react";
 import Post from "./Post";
+import { Link } from "react-router-dom";
 
 export default function UserProfilePage({ match }) {
     const currentPageUserId = match.params.userId;
@@ -42,7 +43,9 @@ export default function UserProfilePage({ match }) {
             <h1>{currentPageUser.name}</h1>
             <Image src={currentPageUser.profilePictureId} height={100} />
 
-            <h2>Message</h2>
+            <Link to={`/chat/${currentPageUserId}`}>
+                <h2>Message</h2>
+            </Link>
             <h2>Follow</h2>
 
             {posts.map((post) => (
