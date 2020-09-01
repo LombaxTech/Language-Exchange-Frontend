@@ -10,6 +10,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AddCommentOutlinedIcon from "@material-ui/icons/AddCommentOutlined";
+import MailIcon from "@material-ui/icons/Mail";
 
 import { Avatar } from "@material-ui/core";
 
@@ -106,6 +107,14 @@ export default function Navbar() {
                         <div>
                             {/* <AddCommentOutlinedIcon className="add-post" /> */}
                             <AddPost />
+                            <IconButton
+                                style={{ color: "white" }}
+                                onClick={() => {
+                                    window.location = "/chats";
+                                }}
+                            >
+                                <MailIcon />
+                            </IconButton>
                             <IconButton
                                 edge="end"
                                 aria-label="account of current user"

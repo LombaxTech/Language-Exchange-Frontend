@@ -9,6 +9,7 @@ import Signin from "./components/Signin";
 import Profile from "./components/Profile";
 import UserProfilePage from "./components/UserProfilePage";
 import Chatroom from "./components/Chatroom";
+import Chats from "./components/Chats";
 
 export default function App() {
     return (
@@ -20,6 +21,7 @@ export default function App() {
                 <Route exact path="/signin" component={Signin} />
                 <Route exact path="/user/:userId" component={UserProfilePage} />
                 <Route exact path="/profile" component={Profile} />
+                <Route exact path="/chats" component={Chats} />
                 <Route exact path="/chat/:partnerId" component={Chatroom} />
             </Switch>
         </Router>

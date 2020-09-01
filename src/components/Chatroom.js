@@ -36,9 +36,11 @@ export default function Chatroom({ match }) {
 
             let chat = await chatService.find({ query: { chatId } });
             if (chat.total === 0) {
+                console.log("chat doesnt exist");
                 return setChatExists(false);
             }
             setChatExists(true);
+            console.log("chat exists");
             chat = chat.data[0];
             setChat(chat);
             setMessages(chat.messages);
@@ -81,8 +83,11 @@ export default function Chatroom({ match }) {
             user._id < currentPageUser._id
                 ? `${user._id + currentPageUser._id}`
                 : `${currentPageUser._id + user._id}`;
+
+        let members = [user._id, currentPageUser._id];
+
         try {
-            let chat = await chatService.create({ chatId });
+            let chat = await chatService.create({ chatId, members });
             console.log(chat);
         } catch (error) {
             console.log(error);
