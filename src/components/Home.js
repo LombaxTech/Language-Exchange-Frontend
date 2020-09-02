@@ -6,12 +6,16 @@ import AllUsers from "./AllUsers";
 import AllPosts from "./AllPosts";
 
 import Post from "./Post";
+import io from "socket.io-client";
+const socket = io("http://localhost:3030");
 
 export default function Home() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState({});
 
     async function init() {
+        socket.on("connected", (e) => console.log(e));
+
         try {
             let result = await client.authenticate();
             setUser(result.user);

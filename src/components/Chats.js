@@ -14,7 +14,7 @@ export default function Chats() {
 
             // get chats
             let chats = await fetch(
-                `http://localhost:3030/custom-chat/${user._id}`
+                `http://localhost:3030/custom-chats/${user._id}`
             );
             chats = await chats.json();
             console.log(chats);

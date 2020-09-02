@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import client from "../feathers";
 import TextField from "@material-ui/core/TextField";
+import Message from "./Message";
 
 export default function Chatroom({ match }) {
     const chatService = client.service("chat");
@@ -32,18 +33,19 @@ export default function Chatroom({ match }) {
                     ? `${userId + partnerId}`
                     : `${partnerId + userId}`;
 
-            console.log(chatId);
-
-            let chat = await chatService.find({ query: { chatId } });
-            if (chat.total === 0) {
-                console.log("chat doesnt exist");
+            let chat = await fetch(
+                `http://localhost:3030/custom-chat/${chatId}`
+            );
+            chat = await chat.json();
+            console.log(chat);
+            if (!chat) {
                 return setChatExists(false);
             }
             setChatExists(true);
-            console.log("chat exists");
-            chat = chat.data[0];
+
             setChat(chat);
             setMessages(chat.messages);
+            // console.log(chat.messages);
         } catch (error) {
             console.log(error);
         }
@@ -61,16 +63,26 @@ export default function Chatroom({ match }) {
 
     const createMessage = async () => {
         try {
-            let result = await chatService.patch(chat._id, {
-                $set: {
-                    messages: [
-                        {
-                            text: messageText,
-                            senderId: user._id,
-                        },
-                    ],
+            const chatId =
+                user._id < currentPageUser._id
+                    ? `${user._id + currentPageUser._id}`
+                    : `${currentPageUser._id + user._id}`;
+
+            const message = {
+                chatId,
+                text: messageText,
+                sender: user._id,
+            };
+
+            let result = await fetch(`http://localhost:3030/message`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
                 },
+                body: JSON.stringify(message),
             });
+            result = await result.json();
 
             console.log(result);
         } catch (error) {
@@ -104,28 +116,32 @@ export default function Chatroom({ match }) {
         // console.log(messageText);
     };
 
+    const DisplayMessages = () => (
+        <div className="messages">
+            {messages.map((message) => (
+                <Message key={message._id} message={message} />
+            ))}
+        </div>
+    );
+
+    const SendMessage = () => (
+        <div className="send-message">
+            <TextField
+                label="Enter Message"
+                multiline
+                rowsMax={4}
+                value={messageText}
+                onChange={handleChange}
+            />
+            <button onClick={sendMessage}>Send Message</button>
+        </div>
+    );
+
     return (
         <div>
             <h1>{currentPageUser.name} Chat</h1>
-            <div className="messages">
-                <ul>
-                    {messages.map((message) => (
-                        <li key={message._id}>
-                            {message.text} <br /> {message.senderId}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className="send-message">
-                <TextField
-                    label="Enter Message"
-                    multiline
-                    rowsMax={4}
-                    value={messageText}
-                    onChange={handleChange}
-                />
-                <button onClick={sendMessage}>Send Message</button>
-            </div>
+            <DisplayMessages />
+            <SendMessage />
         </div>
     );
 }
