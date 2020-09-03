@@ -3,6 +3,9 @@ import client from "../feathers";
 import { Link } from "react-router-dom";
 import Post from "./Post";
 
+import io from "socket.io-client";
+const socket = io("http://localhost:3030");
+
 export default function AllPosts() {
     const postsService = client.service("posts");
 
@@ -10,6 +13,11 @@ export default function AllPosts() {
     const [user, setUser] = useState({});
 
     async function init() {
+        socket.on("write post", (post) => {
+            console.log(post);
+            setPosts([post, ...posts]);
+        });
+
         try {
             let result = await fetch("http://localhost:3030/custom-posts");
             result = await result.json();

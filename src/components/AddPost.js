@@ -4,8 +4,10 @@ import { IconButton } from "@material-ui/core";
 import { Modal, Button } from "react-bootstrap";
 
 import client from "../feathers";
-
 import "../styles/addpost.scss";
+
+import io from "socket.io-client";
+const socket = io("http://localhost:3030");
 
 export default function AddPost() {
     const postsService = client.service("posts");
@@ -43,6 +45,7 @@ export default function AddPost() {
         };
         try {
             let result = await postsService.create(post);
+            socket.emit("post", result);
             console.log(result);
         } catch (error) {
             console.log(error);

@@ -14,9 +14,10 @@ export default function Home() {
     const [user, setUser] = useState({});
 
     async function init() {
-        socket.on("connected", (e) => console.log(e));
-
         try {
+            socket.on("test", (e) => console.log(e));
+            socket.on("test info", (e) => console.log(e));
+
             let result = await client.authenticate();
             setUser(result.user);
             setLoggedIn(true);
@@ -29,6 +30,9 @@ export default function Home() {
     useEffect(() => {
         init();
     }, []);
+
+    socket.on("connected", (e) => console.log(e));
+    socket.on("test info", (info) => console.log("test received"));
 
     return (
         <div>
