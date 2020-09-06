@@ -14,14 +14,25 @@ export default function UserProfilePage({ match }) {
     const [currentPageUser, setCurrentPageUser] = useState({});
     const [posts, setPosts] = useState([]);
 
+    const [following, setFollowing] = useState(false);
+
     async function init() {
         try {
             let currentUser = await usersService.get(currentPageUserId);
             setCurrentPageUser(currentUser);
+            console.log(currentUser);
 
             let user = await client.authenticate();
             user = user.user;
             setUser(user);
+
+            if (currentUser.followers.includes(user._id)) {
+                setFollowing(true);
+                console.log("is following");
+            } else {
+                setFollowing(false);
+                console.log("isnt following");
+            }
 
             let posts = await fetch(
                 `http://localhost:3030/custom-posts/${currentUser._id}`
@@ -38,6 +49,28 @@ export default function UserProfilePage({ match }) {
         init();
     }, []);
 
+    const follow = async () => {
+        try {
+            let result = await fetch(`http://localhost:3030/follow`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId: user._id,
+                    partnerId: currentPageUser._id,
+                }),
+            });
+            result = await result.json();
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const unfollow = async () => {};
+
     return (
         <div>
             <h1>{currentPageUser.name}</h1>
@@ -46,7 +79,10 @@ export default function UserProfilePage({ match }) {
             <Link to={`/chat/${currentPageUserId}`}>
                 <h2>Message</h2>
             </Link>
-            <h2>Follow</h2>
+
+            {!following && <button onClick={follow}>Follow</button>}
+
+            {following && <button onClick={unfollow}>Unfollow</button>}
 
             {posts.map((post) => (
                 <Post
