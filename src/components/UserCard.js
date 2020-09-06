@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/usercard.scss";
 
 import { Link } from "react-router-dom";
@@ -12,7 +12,12 @@ export default function UserCard({
     nativeLanguage,
     targetLanguage,
     userId,
+    isFollowed,
+    follow,
+    unfollow,
 }) {
+    const [following, setFollowing] = useState(false);
+
     return (
         <div className="usercard">
             <div className="profile-pic">
@@ -32,6 +37,10 @@ export default function UserCard({
                 </Link>
                 <h6>Learning: {targetLanguage}</h6>
                 <h6>Native: {nativeLanguage}</h6>
+            </div>
+            <div className="follow-related">
+                {!isFollowed && <button onClick={follow}>Follow</button>}
+                {isFollowed && <button onClick={unfollow}>Unfollow</button>}
             </div>
         </div>
     );

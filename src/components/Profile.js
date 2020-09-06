@@ -10,6 +10,9 @@ import {
     Input,
 } from "@material-ui/core";
 
+import Followers from "./Followers";
+import Following from "./Following";
+
 const cloudName = "dhrowvziz";
 
 export default function Profile() {
@@ -17,10 +20,15 @@ export default function Profile() {
 
     const [user, setUser] = useState({});
 
+    const [loading, setLoading] = useState(true);
+
     async function init() {
+        setLoading(true);
         let user = await client.authenticate();
         user = user.user;
+        console.log(user);
         setUser(user);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -107,9 +115,16 @@ export default function Profile() {
         }
     };
 
+    if (loading) return <h1>Loading...</h1>;
+
     return (
         <div>
             <h1>Profile</h1>
+            <div className="follow-related" style={{ display: "flex" }}>
+                <Followers userId={user._id} />
+                <Following userId={user._id} />
+            </div>
+            <h1>Update Profile</h1>
             <form onSubmit={updateProfile}>
                 <div style={{ display: "block" }}>Email: {user.email}</div>
                 <TextField
@@ -130,7 +145,7 @@ export default function Profile() {
                     type="submit"
                     style={{ display: "block", margin: "10px" }}
                 >
-                    Sign Up
+                    Update Profile
                 </button>
             </form>
         </div>
