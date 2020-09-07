@@ -11,6 +11,7 @@ import UserProfilePage from "./components/UserProfilePage";
 import Chatroom from "./components/Chatroom";
 import Chats from "./components/Chats";
 import TargetLanguagePosts from "./components/TargetLanguagePosts";
+import FollowingPosts from "./components/FollowingPosts";
 
 export default function App() {
     return (
@@ -29,6 +30,7 @@ export default function App() {
                     path="/targetlanguage"
                     component={TargetLanguagePosts}
                 />
+                <Route exact path="/following" component={FollowingPosts} />
             </Switch>
         </Router>
     );

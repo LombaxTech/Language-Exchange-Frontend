@@ -3,8 +3,8 @@ import client from "../feathers";
 
 export default function Signout() {
     const signout = async () => {
+        window.location = "/";
         await client.logout();
-        window.location.reload();
     };
 
     return (

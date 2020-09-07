@@ -38,7 +38,7 @@ export default function AddPost() {
     };
 
     const submitPost = async () => {
-        // console.log(currentUser);
+        // return console.log(currentUser)
         const post = {
             text: postText,
             user: currentUser._id,

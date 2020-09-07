@@ -96,6 +96,12 @@ export default function Navbar() {
                         >
                             Learn
                         </Button>{" "}
+                        <Button
+                            color="inherit"
+                            onClick={() => (window.location = "/following")}
+                        >
+                            Following
+                        </Button>{" "}
                         {!loggedIn && (
                             <div>
                                 <Button
