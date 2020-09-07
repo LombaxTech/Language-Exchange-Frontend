@@ -37,6 +37,13 @@ export default function UserCard({
                 </Link>
                 <h6>Learning: {targetLanguage}</h6>
                 <h6>Native: {nativeLanguage}</h6>
+                <button
+                    onClick={() => {
+                        console.log(userId);
+                    }}
+                >
+                    user id
+                </button>
             </div>
             <div className="follow-related">
                 {!isFollowed && <button onClick={follow}>Follow</button>}

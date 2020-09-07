@@ -22,6 +22,43 @@ export default function Followers({ userId }) {
         init();
     }, []);
 
+    const follow = async (partnerId) => {
+        try {
+            let result = await fetch(`http://localhost:3030/follow`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ userId, partnerId }),
+            });
+            result = await result.json();
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const unfollow = async (partnerId) => {
+        try {
+            let result = await fetch(`http://localhost:3030/unfollow`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId,
+                    partnerId,
+                }),
+            });
+            result = await result.json();
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <div>
             <h1>Followers</h1>
@@ -32,11 +69,15 @@ export default function Followers({ userId }) {
                         profilePictureId={follower.profilePictureId}
                         nativeLanguage={follower.nativeLanguage}
                         targetLanguage={follower.targetLanguage}
-                        userId={follower.userId}
+                        userId={follower._id}
                         key={follower._id}
-                        isFollowed={}
-                        follow={}
-                        unfollow={}
+                        isFollowed={follower.followers.includes(userId)}
+                        follow={() => {
+                            follow(follower._id);
+                        }}
+                        unfollow={() => {
+                            unfollow(follower._id);
+                        }}
                     />
                 ))}
             </ul>

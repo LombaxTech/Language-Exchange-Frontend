@@ -18,7 +18,7 @@ export default function Following({ userId }) {
         }
     }
 
-    const unfollow = async () => {
+    const unfollow = async (partnerId) => {
         try {
             let result = await fetch(`http://localhost:3030/unfollow`, {
                 method: "POST",
@@ -26,9 +26,14 @@ export default function Following({ userId }) {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({}),
+                body: JSON.stringify({
+                    userId,
+                    partnerId,
+                }),
             });
             result = await result.json();
+            console.log(result);
+            setFollowing(following.filter((user) => user._id !== partnerId));
         } catch (error) {
             console.log(error);
         }
@@ -48,11 +53,12 @@ export default function Following({ userId }) {
                         profilePictureId={user.profilePictureId}
                         nativeLanguage={user.nativeLanguage}
                         targetLanguage={user.targetLanguage}
-                        userId={user.userId}
+                        userId={user._id}
                         key={user._id}
                         isFollowed={true}
-                        follow={}
-                        unfollow={}
+                        unfollow={() => {
+                            unfollow(user._id);
+                        }}
                     />
                 ))}
             </ul>
