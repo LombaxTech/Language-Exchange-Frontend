@@ -35,7 +35,7 @@ export default function UserProfilePage({ match }) {
             }
 
             let posts = await fetch(
-                `http://localhost:3030/custom-posts/${currentUser._id}`
+                `http://localhost:3030/custom-post/${currentUser._id}`
             );
             posts = await posts.json();
             setPosts(posts);

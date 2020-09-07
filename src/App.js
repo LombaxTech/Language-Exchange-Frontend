@@ -10,6 +10,7 @@ import Profile from "./components/Profile";
 import UserProfilePage from "./components/UserProfilePage";
 import Chatroom from "./components/Chatroom";
 import Chats from "./components/Chats";
+import TargetLanguagePosts from "./components/TargetLanguagePosts";
 
 export default function App() {
     return (
@@ -23,6 +24,11 @@ export default function App() {
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/chats" component={Chats} />
                 <Route exact path="/chat/:partnerId" component={Chatroom} />
+                <Route
+                    exact
+                    path="/targetlanguage"
+                    component={TargetLanguagePosts}
+                />
             </Switch>
         </Router>
     );

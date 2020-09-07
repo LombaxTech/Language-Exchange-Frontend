@@ -87,50 +87,64 @@ export default function Navbar() {
                             HT CLONE
                         </div>
                     </Typography>
-                    {!loggedIn && (
-                        <div>
-                            <Button
-                                color="inherit"
-                                onClick={() => (window.location = "/signin")}
-                            >
-                                Login
-                            </Button>
-                            <Button
-                                color="inherit"
-                                onClick={() => (window.location = "/signup")}
-                            >
-                                SIGN UP
-                            </Button>
-                        </div>
-                    )}
-                    {loggedIn && (
-                        <div>
-                            {/* <AddCommentOutlinedIcon className="add-post" /> */}
-                            <AddPost />
-                            <IconButton
-                                style={{ color: "white" }}
-                                onClick={() => {
-                                    window.location = "/chats";
-                                }}
-                            >
-                                <MailIcon />
-                            </IconButton>
-                            <IconButton
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-haspopup="true"
-                                color="inherit"
-                                onClick={handleProfileMenuOpen}
-                            >
-                                <Avatar
-                                    alt="Sheldon Cooper"
-                                    src={user.profilePictureId}
-                                    style={{ alignSelf: "center" }}
-                                />
-                                {/* <AccountCircle /> */}
-                            </IconButton>
-                        </div>
-                    )}
+                    <div style={{ display: "flex" }}>
+                        <Button
+                            color="inherit"
+                            onClick={() =>
+                                (window.location = "/targetlanguage")
+                            }
+                        >
+                            Learn
+                        </Button>{" "}
+                        {!loggedIn && (
+                            <div>
+                                <Button
+                                    color="inherit"
+                                    onClick={() =>
+                                        (window.location = "/signin")
+                                    }
+                                >
+                                    Login
+                                </Button>
+                                <Button
+                                    color="inherit"
+                                    onClick={() =>
+                                        (window.location = "/signup")
+                                    }
+                                >
+                                    SIGN UP
+                                </Button>
+                            </div>
+                        )}
+                        {loggedIn && (
+                            <div>
+                                {/* <AddCommentOutlinedIcon className="add-post" /> */}
+                                <AddPost />
+                                <IconButton
+                                    style={{ color: "white" }}
+                                    onClick={() => {
+                                        window.location = "/chats";
+                                    }}
+                                >
+                                    <MailIcon />
+                                </IconButton>
+                                <IconButton
+                                    edge="end"
+                                    aria-label="account of current user"
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                    onClick={handleProfileMenuOpen}
+                                >
+                                    <Avatar
+                                        alt="Sheldon Cooper"
+                                        src={user.profilePictureId}
+                                        style={{ alignSelf: "center" }}
+                                    />
+                                    {/* <AccountCircle /> */}
+                                </IconButton>
+                            </div>
+                        )}
+                    </div>
                 </Toolbar>
             </AppBar>
             {renderMenu}

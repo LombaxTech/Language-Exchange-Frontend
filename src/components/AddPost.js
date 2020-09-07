@@ -42,6 +42,7 @@ export default function AddPost() {
         const post = {
             text: postText,
             user: currentUser._id,
+            language: currentUser.nativeLanguage,
         };
         try {
             let result = await postsService.create(post);
