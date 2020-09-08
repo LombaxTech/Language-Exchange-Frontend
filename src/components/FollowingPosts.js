@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import client from "../feathers";
 import Post from "./Post";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function FollowingPosts() {
     const [user, setUser] = useState({});
@@ -19,12 +20,11 @@ export default function FollowingPosts() {
             for (let userId of user.following) {
                 try {
                     let result = await fetch(
-                        `http://localhost:3030/custom-posts/user/${userId}`
+                        `http://localhost:3030/custom-posts/user/${userId}/0/10`
                     );
                     result = await result.json();
                     console.log(result);
                     _posts = [..._posts, ...result];
-                    console.log(typeof result[0].createdAt);
                 } catch (error) {
                     console.log(error);
                 }
@@ -49,23 +49,77 @@ export default function FollowingPosts() {
         init();
     }, []);
 
+    const [hasMore, setHasMore] = useState(true);
+    const [page, setPage] = useState(1);
+
+    const fetchMorePosts = async () => {
+        try {
+            let newPosts = [];
+            for (let userId of user.following) {
+                try {
+                    let result = await fetch(
+                        `http://localhost:3030/custom-posts/user/${userId}/${
+                            page * 10
+                        }/${10}`
+                    );
+                    result = await result.json();
+                    console.log(result);
+                    newPosts = [...newPosts, ...result];
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            newPosts = newPosts.map((post) => ({
+                ...post,
+                createdAt: new Date(post.createdAt),
+            }));
+            newPosts.sort((a, b) => b.createdAt - a.createdAt);
+            newPosts = newPosts.map((post) => ({
+                ...post,
+                createdAt: post.createdAt.toString(),
+            }));
+
+            setPosts(_posts);
+
+            if (newPosts.length === 0) {
+                return setHasMore(false);
+            }
+            setPosts([...posts, ...newPosts]);
+            setPage(page + 1);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <div>
             <h1>Following Posts</h1>
-            {posts.map((post) => (
-                <Post
-                    key={post._id}
-                    profilePictureId={post.user.profilePictureId}
-                    name={post.user.name}
-                    createdAt={post.createdAt}
-                    postText={post.text}
-                    numberOfComments={post.comments.length}
-                    numberOfLikes={post.likes.length}
-                    isOwnPost={post.user._id === user._id}
-                    postId={post._id}
-                    user={post.user}
-                />
-            ))}
+            <InfiniteScroll
+                dataLength={posts.length}
+                next={fetchMorePosts}
+                hasMore={hasMore}
+                loader={<h4>Loading...</h4>}
+                endMessage={
+                    <p style={{ textAlign: "center" }}>
+                        <b>Yay! You have seen it all</b>
+                    </p>
+                }
+            >
+                {posts.map((post) => (
+                    <Post
+                        key={post._id}
+                        profilePictureId={post.user.profilePictureId}
+                        name={post.user.name}
+                        createdAt={post.createdAt}
+                        postText={post.text}
+                        numberOfComments={post.comments.length}
+                        numberOfLikes={post.likes.length}
+                        isOwnPost={post.user._id === user._id}
+                        postId={post._id}
+                        user={post.user}
+                    />
+                ))}
+            </InfiniteScroll>
         </div>
     );
 }
