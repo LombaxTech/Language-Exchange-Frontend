@@ -14,3 +14,9 @@
 .post-info {
     padding: 5px;
 }
+
+.comments,
+.likes {
+    width: fit-content !important;
+    display: inline !important;
+}

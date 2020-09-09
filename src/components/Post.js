@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar } from "@material-ui/core";
+import { Avatar, MenuItem } from "@material-ui/core";
 import { ChatBubbleOutline, FavoriteBorder } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import client from "../feathers";
@@ -16,12 +16,36 @@ export default function Post({
     isOwnPost,
     postId,
     user,
+    currentUserId,
 }) {
     const postsService = client.service("posts");
 
     const deletePost = async () => {
         try {
             let result = await postsService.remove(postId);
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const like = async () => {
+        try {
+            let result = await fetch(
+                `http://localhost:3030/custom-post/${postId}/like`,
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        likerId: currentUserId,
+                        // likerId: "5f4c068adeaf644ddc017f16",
+                    }),
+                }
+            );
+            result = await result.json();
             console.log(result);
         } catch (error) {
             console.log(error);
@@ -40,8 +64,13 @@ export default function Post({
             <div className="post-info">
                 <div className="post-text">{postText}</div>
                 <div className="comments-likes">
-                    <ChatBubbleOutline /> {numberOfComments}
-                    <FavoriteBorder /> {numberOfLikes}
+                    <MenuItem className="comments">
+                        <ChatBubbleOutline />
+                        {numberOfComments}
+                    </MenuItem>{" "}
+                    <MenuItem className="likes" onClick={like}>
+                        <FavoriteBorder /> {numberOfLikes}
+                    </MenuItem>
                 </div>
                 {isOwnPost && <button onClick={deletePost}>Delete</button>}
             </div>

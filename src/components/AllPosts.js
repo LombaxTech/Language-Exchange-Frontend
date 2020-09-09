@@ -6,7 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import io from "socket.io-client";
 const socket = io("http://localhost:3030");
 
-export default function AllPosts() {
+export default function AllPosts({ currentUser }) {
     const postsService = client.service("posts");
 
     const [posts, setPosts] = useState([]);

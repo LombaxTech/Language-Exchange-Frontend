@@ -79,8 +79,6 @@ export default function FollowingPosts() {
                 createdAt: post.createdAt.toString(),
             }));
 
-            setPosts(_posts);
-
             if (newPosts.length === 0) {
                 return setHasMore(false);
             }
