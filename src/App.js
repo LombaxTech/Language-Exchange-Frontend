@@ -12,6 +12,7 @@ import Chatroom from "./components/Chatroom";
 import Chats from "./components/Chats";
 import TargetLanguagePosts from "./components/TargetLanguagePosts";
 import FollowingPosts from "./components/FollowingPosts";
+import FullPost from "./components/FullPost";
 
 export default function App() {
     return (
@@ -31,6 +32,7 @@ export default function App() {
                     component={TargetLanguagePosts}
                 />
                 <Route exact path="/following" component={FollowingPosts} />
+                <Route exact path="/post/:postId" component={FullPost} />
             </Switch>
         </Router>
     );

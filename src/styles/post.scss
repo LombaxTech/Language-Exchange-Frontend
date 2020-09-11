@@ -3,6 +3,10 @@
     padding: 10px;
     margin: 10px;
     height: fit-content;
+
+    &:hover {
+        cursor: pointer !important;
+    }
 }
 
 .user-info {
@@ -15,8 +19,11 @@
     padding: 5px;
 }
 
-.comments,
+.comments-icon,
 .likes {
     width: fit-content !important;
     display: inline !important;
+}
+
+.comments {
 }
