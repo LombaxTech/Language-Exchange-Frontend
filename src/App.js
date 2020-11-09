@@ -14,6 +14,8 @@ import TargetLanguagePosts from "./components/TargetLanguagePosts";
 import FollowingPosts from "./components/FollowingPosts";
 import FullPost from "./components/FullPost";
 
+import Experimental from "./components/Experimental";
+
 export default function App() {
     return (
         <Router>
@@ -33,6 +35,7 @@ export default function App() {
                 />
                 <Route exact path="/following" component={FollowingPosts} />
                 <Route exact path="/post/:postId" component={FullPost} />
+                <Route exact path="/experimental" component={Experimental} />s
             </Switch>
         </Router>
     );
