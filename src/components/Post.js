@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Avatar, MenuItem } from "@material-ui/core";
 import { ChatBubbleOutline, FavoriteBorder } from "@material-ui/icons";
-import { Link } from "react-router-dom";
-import client from "../feathers";
+import Typography from "@material-ui/core/Typography";
 
+import client from "../feathers";
 import "../styles/post.scss";
 
 export default function Post({
@@ -19,6 +20,9 @@ export default function Post({
     currentUserId,
 }) {
     const postsService = client.service("posts");
+
+    // createdAt = new Date(createdAt);
+    console.log(typeof new Date(createdAt).getDate());
 
     const deletePost = async () => {
         try {
@@ -56,13 +60,20 @@ export default function Post({
         <div className="post">
             <div className="user-info">
                 <Avatar alt="Remy Sharp" src={profilePictureId} />
-                <Link to={`/user/${user._id}`}>
-                    <h3>{name}</h3>
-                </Link>
-                <div className="post-time">{createdAt}</div>
+                {/* <Link to={`/user/${user._id}`}> */}
+                <Typography variant="h5">{name}</Typography>
+                {/* </Link> */}
+                <div className="post-time">
+                    <Typography variant="h6">
+                        {new Date(createdAt).getDate().toString()}/
+                        {new Date(createdAt).getMonth().toString()}
+                    </Typography>
+                </div>
             </div>
             <div className="post-info">
-                <div className="post-text">{postText}</div>
+                <div className="post-text">
+                    <Typography variant="body">{postText}</Typography>
+                </div>
                 <div className="comments-likes">
                     <MenuItem className="comments">
                         <ChatBubbleOutline />

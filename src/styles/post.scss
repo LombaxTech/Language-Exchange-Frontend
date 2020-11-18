@@ -1,8 +1,12 @@
 .post {
-    border: 0.5px solid black;
-    padding: 10px;
+    // border: 0.5px solid black;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    padding: 20px;
     margin: 10px;
-    height: fit-content;
+    // height: fit-content;
+    width: 100%;
+    max-width: 700px;
+    // background: yellow;
 
     &:hover {
         cursor: pointer !important;
@@ -12,18 +16,31 @@
 .user-info {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    align-items: center;
+    // padding: 10px;
+    // background: green;
+    margin-bottom: 10px;
 }
 
 .post-info {
-    padding: 5px;
+    // padding: 5px;
+    // background: orange;
+
+    .post-text {
+        // background: red;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .comments-likes {
+        // background: blue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
-.comments-icon,
-.likes {
-    width: fit-content !important;
-    display: inline !important;
-}
-
-.comments {
-}
+// .comments-icon,
+// .likes {
+//     width: fit-content !important;
+//     display: inline !important;
+// }

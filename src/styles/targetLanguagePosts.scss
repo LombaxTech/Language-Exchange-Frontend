@@ -1,0 +1,40 @@
+body {
+    // display: none;s
+}
+
+.target-language-posts-page {
+    // background: yellow;
+    // width: 90%;
+    // margin: 20px auto;
+    display: flex;
+
+    .main {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+    }
+
+    .sidebar {
+        // background: green;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        // height: 100vh;
+        position: fixed;
+
+        .learning,
+        .classmates,
+        .following {
+            // position: absolute;
+            padding: 10px 20px;
+            &:hover {
+                background: red;
+                cursor: pointer;
+            }
+        }
+    }
+}

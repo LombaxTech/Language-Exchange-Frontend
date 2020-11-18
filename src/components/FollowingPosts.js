@@ -90,7 +90,7 @@ export default function FollowingPosts() {
     };
 
     return (
-        <div>
+        <div className="following-posts-page">
             <h1>Following Posts</h1>
             <InfiniteScroll
                 dataLength={posts.length}
