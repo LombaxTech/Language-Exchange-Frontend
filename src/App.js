@@ -13,6 +13,7 @@ import Chats from "./components/Chats";
 import TargetLanguagePosts from "./components/TargetLanguagePosts";
 import FollowingPosts from "./components/FollowingPosts";
 import FullPost from "./components/FullPost";
+import EditProfile from "./components/EditProfile";
 
 import Experimental from "./components/Experimental";
 
@@ -26,6 +27,7 @@ export default function App() {
                 <Route exact path="/signin" component={Signin} />
                 <Route exact path="/user/:userId" component={UserProfilePage} />
                 <Route exact path="/profile" component={Profile} />
+                <Route exact path="/edit-profile" component={EditProfile} />
                 <Route exact path="/chats" component={Chats} />
                 <Route exact path="/chat/:partnerId" component={Chatroom} />
                 <Route

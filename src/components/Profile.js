@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
 import client from "../feathers";
 
-import {
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-    TextField,
-    Input,
-} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Avatar from "@material-ui/core/Avatar";
 
 import Followers from "./Followers";
 import Following from "./Following";
 
-const cloudName = "dhrowvziz";
+import "../styles/profile.scss";
 
 export default function Profile() {
     const usersService = client.service("users");
@@ -35,119 +30,42 @@ export default function Profile() {
         init();
     }, []);
 
-    const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
-    const [file, setFile] = useState({});
-
-    const [newValues, setNewValues] = useState({});
-
-    const updatePasswordValue = (e) => {
-        setPassword(e.target.value);
-        setNewValues({
-            ...newValues,
-            password: e.target.value,
-        });
-    };
-
-    const updateNameValue = (e) => {
-        setName(e.target.value);
-        setNewValues({
-            ...newValues,
-            name: e.target.value,
-        });
-    };
-
-    const handleFileUpload = (e) => {
-        console.log(e.target.files[0]);
-        setFile(e.target.files[0]);
-    };
-
-    const updateProfile = async (e) => {
-        e.preventDefault();
-
-        let valuesToChange = {};
-
-        const keys = Object.keys(newValues);
-
-        keys.forEach((key) => {
-            if (newValues[key] !== "") {
-                valuesToChange[key] = newValues[key];
-            }
-        });
-
-        if (file) {
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("upload_preset", "testpreset");
-
-            try {
-                let result = await fetch(
-                    `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
-                    {
-                        method: "POST",
-                        body: formData,
-                    }
-                );
-                result = await result.json();
-                const { secure_url } = result;
-                if (secure_url) {
-                    valuesToChange = {
-                        ...valuesToChange,
-                        profilePictureId: secure_url,
-                    };
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        // console.log(valuesToChange);
-        if (Object.keys(valuesToChange).length === 0) {
-            return console.log("nothing to change");
-        }
-
-        try {
-            let result = await usersService.patch(user._id, valuesToChange);
-            console.log(result);
-            window.location.reload();
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     if (loading) return <h1>Loading...</h1>;
 
     return (
-        <div>
-            <h1>Profile</h1>
-            <div className="follow-related" style={{ display: "flex" }}>
-                <Followers userId={user._id} />
-                <Following userId={user._id} />
+        <div className="profile-page">
+            <div className="profile-pic-section">
+                <Avatar src={user.profilePictureId} className="profile-pic" />
             </div>
-            <h1>Update Profile</h1>
-            <form onSubmit={updateProfile}>
-                <div style={{ display: "block" }}>Email: {user.email}</div>
-                <TextField
-                    label="New Name"
-                    value={name}
-                    onChange={updateNameValue}
-                    placeholder={user.name}
-                />
-                <TextField
-                    label="New Password"
-                    value={password}
-                    onChange={updatePasswordValue}
-                />
-
-                <Input type="file" onChange={handleFileUpload} />
-
-                <button
-                    type="submit"
-                    style={{ display: "block", margin: "10px" }}
+            <div className="follow-posts">
+                <div className="following">
+                    <Button variant="outlined">
+                        <Typography variant="h5">Following</Typography>
+                    </Button>
+                </div>
+                <div className="followers">
+                    <Button variant="outlined">
+                        <Typography variant="h5">Followers</Typography>
+                    </Button>{" "}
+                </div>
+                <div className="posts">
+                    <Button variant="outlined">
+                        <Typography variant="h5">Posts</Typography>
+                    </Button>
+                </div>
+            </div>
+            <div className="edit-profile">
+                <Button
+                    variant="contained"
+                    size="large"
+                    fullWidth={true}
+                    className="edit-profile-button"
+                    color="primary"
+                    onClick={() => (window.location = "/edit-profile")}
                 >
-                    Update Profile
-                </button>
-            </form>
+                    Edit Profile
+                </Button>
+            </div>
         </div>
     );
 }
