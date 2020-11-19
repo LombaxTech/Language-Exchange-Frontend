@@ -1,6 +1,32 @@
 import React, { useState, useEffect } from "react";
 import client from "../feathers";
-import ChatLink from "./ChatLink";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
+
+import "../styles/chats.scss";
+
+const Chat = ({ partner, lastMessage }) => (
+    <div
+        className="chat"
+        onClick={() => (window.location = `/chat/${partner._id}`)}
+    >
+        <div className="profile-pic-name-message">
+            <Avatar
+                src={partner.profilePictureId}
+                style={{ width: "75px", height: "75px" }}
+            />
+            <div className="name-message">
+                <Typography variant="h6" className="name">
+                    {partner.name}
+                </Typography>
+                <Typography variant="body1" className="last-message">
+                    Hey when is our next lesson?
+                </Typography>
+            </div>
+        </div>
+        <div className="date">16:20 12/01/2020</div>
+    </div>
+);
 
 export default function Chats() {
     const [user, setUser] = useState({});
@@ -12,7 +38,6 @@ export default function Chats() {
             user = user.user;
             setUser(user);
 
-            // get chats
             let chats = await fetch(
                 `http://localhost:3030/custom-chats/${user._id}`
             );
@@ -29,16 +54,26 @@ export default function Chats() {
     }, []);
 
     return (
-        <div>
-            <h1>Chats</h1>
-            {/* <ChatLink /> */}
-            {chats.map((chat) => {
-                let partner = chat.members.filter(
-                    (member) => member._id !== user._id
-                )[0];
+        <div className="chats-page">
+            <Typography variant="h3" className="page-title">
+                Chats
+            </Typography>
+            <div className="chats">
+                {chats.map((chat) => {
+                    let partner = chat.members.filter(
+                        (member) => member._id !== user._id
+                    )[0];
 
-                return <ChatLink key={chat._id} partner={partner} />;
-            })}
+                    return <Chat partner={partner} key={chat._id} />;
+                })}
+            </div>
         </div>
     );
 }
+
+// {chats.map((chat) => {
+//     let partner = chat.members.filter(
+//         (member) => member._id !== user._id
+//     )[0];
+
+// })}

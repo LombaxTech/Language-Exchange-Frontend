@@ -3,6 +3,9 @@ import client from "../feathers";
 import TextField from "@material-ui/core/TextField";
 import Message from "./Message";
 
+import { smallBigString } from "../helperFunctions";
+import { CodeSharp } from "@material-ui/icons";
+
 export default function Chatroom({ match }) {
     const chatService = client.service("chat");
     const usersService = client.service("users");
@@ -27,11 +30,7 @@ export default function Chatroom({ match }) {
 
             let userId = user._id;
             let partnerId = match.params.partnerId;
-
-            let chatId =
-                userId < partnerId
-                    ? `${userId + partnerId}`
-                    : `${partnerId + userId}`;
+            let chatId = smallBigString(userId, partnerId);
 
             let chat = await fetch(
                 `http://localhost:3030/custom-chat/${chatId}`
@@ -55,12 +54,6 @@ export default function Chatroom({ match }) {
         init();
     }, []);
 
-    const [messageText, setMessageText] = useState("");
-
-    const handleChange = (e) => {
-        setMessageText(e.target.value);
-    };
-
     const createMessage = async () => {
         try {
             const chatId =
@@ -70,7 +63,7 @@ export default function Chatroom({ match }) {
 
             const message = {
                 chatId,
-                text: messageText,
+                text: msg,
                 sender: user._id,
             };
 
@@ -124,15 +117,14 @@ export default function Chatroom({ match }) {
         </div>
     );
 
+    const [msg, setMsg] = useState("");
+    const handleMsgChange = (e) => {
+        console.log(e.target.value);
+        setMsg(e.target.value);
+    };
     const SendMessage = () => (
         <div className="send-message">
-            <TextField
-                label="Enter Message"
-                multiline
-                rowsMax={4}
-                value={messageText}
-                onChange={handleChange}
-            />
+            <TextField value={msg} onChange={handleMsgChange} />
             <button onClick={sendMessage}>Send Message</button>
         </div>
     );
@@ -141,7 +133,9 @@ export default function Chatroom({ match }) {
         <div>
             <h1>{currentPageUser.name} Chat</h1>
             <DisplayMessages />
-            <SendMessage />
+            {/* <SendMessage /> */}
+            {SendMessage()}
+            {/* <TextField valu e={msg} onChange={handleMsgChange} /> */}
         </div>
     );
 }
