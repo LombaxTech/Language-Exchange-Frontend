@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import client from "../feathers";
+
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import Message from "./Message";
 
 import { smallBigString } from "../helperFunctions";
 import { CodeSharp } from "@material-ui/icons";
+
+import "../styles/chatroom.scss";
 
 export default function Chatroom({ match }) {
     const chatService = client.service("chat");
@@ -44,7 +48,7 @@ export default function Chatroom({ match }) {
 
             setChat(chat);
             setMessages(chat.messages);
-            // console.log(chat.messages);
+            console.log(chat.messages);
         } catch (error) {
             console.log(error);
         }
@@ -54,12 +58,20 @@ export default function Chatroom({ match }) {
         init();
     }, []);
 
+    const createChat = async () => {
+        const chatId = smallBigString(user._id, currentPageUser._id);
+        let members = [user._id, currentPageUser._id];
+        try {
+            let chat = await chatService.create({ chatId, members });
+            console.log(chat);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const createMessage = async () => {
         try {
-            const chatId =
-                user._id < currentPageUser._id
-                    ? `${user._id + currentPageUser._id}`
-                    : `${currentPageUser._id + user._id}`;
+            const chatId = smallBigString(user._id, currentPageUser._id);
 
             const message = {
                 chatId,
@@ -83,22 +95,6 @@ export default function Chatroom({ match }) {
         }
     };
 
-    const createChat = async () => {
-        const chatId =
-            user._id < currentPageUser._id
-                ? `${user._id + currentPageUser._id}`
-                : `${currentPageUser._id + user._id}`;
-
-        let members = [user._id, currentPageUser._id];
-
-        try {
-            let chat = await chatService.create({ chatId, members });
-            console.log(chat);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     const sendMessage = async () => {
         if (!chatExists) {
             createChat();
@@ -106,7 +102,6 @@ export default function Chatroom({ match }) {
             return;
         }
         return createMessage();
-        // console.log(messageText);
     };
 
     const DisplayMessages = () => (
@@ -118,23 +113,33 @@ export default function Chatroom({ match }) {
     );
 
     const [msg, setMsg] = useState("");
-    const handleMsgChange = (e) => {
-        console.log(e.target.value);
-        setMsg(e.target.value);
-    };
+    const handleMsgChange = (e) => setMsg(e.target.value);
+
     const SendMessage = () => (
         <div className="send-message">
-            <TextField value={msg} onChange={handleMsgChange} />
-            <button onClick={sendMessage}>Send Message</button>
+            <TextField
+                value={msg}
+                onChange={handleMsgChange}
+                variant="outlined"
+                className="message-input"
+                multiline
+                rowsMax={3}
+            />
+            <Button variant="contained" onClick={sendMessage} color="primary">
+                Send Message
+            </Button>
         </div>
     );
 
     return (
-        <div>
+        <div className="chatroom-page">
             <h1>{currentPageUser.name} Chat</h1>
-            <DisplayMessages />
-            {/* <SendMessage /> */}
+            {DisplayMessages()}
+            {/* <div className="messages"><Message message={}</div> */}
             {SendMessage()}
+
+            {/* <DisplayMessages /> */}
+            {/* <SendMessage /> */}
             {/* <TextField valu e={msg} onChange={handleMsgChange} /> */}
         </div>
     );
