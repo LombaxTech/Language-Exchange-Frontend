@@ -1,4 +1,14 @@
 .message {
     display: flex;
+    align-items: center;
+    // justify-content: center;
+    padding: 5px 10px;
     margin: 10px;
+    background: rgba(230, 230, 230, 0.3);
+    // height: fit-content;
+    width: fit-content;
+
+    .message-text {
+        margin-left: 15px;
+    }
 }
