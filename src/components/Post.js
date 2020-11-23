@@ -59,10 +59,14 @@ export default function Post({
     return (
         <div className="post">
             <div className="user-info">
-                <Avatar alt="Remy Sharp" src={profilePictureId} />
-                {/* <Link to={`/user/${user._id}`}> */}
+                <Avatar
+                    alt="Remy Sharp"
+                    src={profilePictureId}
+                    onClick={() => (window.location = `/user/${user._id}`)}
+                    className="profile-pic"
+                />
                 <Typography variant="h5">{name}</Typography>
-                {/* </Link> */}
+
                 <div className="post-time">
                     <Typography variant="h6">
                         {new Date(createdAt).getDate().toString()}/

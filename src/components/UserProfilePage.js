@@ -4,6 +4,8 @@ import { Image, Transformation } from "cloudinary-react";
 import Post from "./Post";
 import { Link } from "react-router-dom";
 
+import "../styles/userprofilepage.scss";
+
 export default function UserProfilePage({ match }) {
     const currentPageUserId = match.params.userId;
 
@@ -20,7 +22,7 @@ export default function UserProfilePage({ match }) {
         try {
             let currentUser = await usersService.get(currentPageUserId);
             setCurrentPageUser(currentUser);
-            console.log(currentUser);
+            console.log({ currentUser });
 
             let user = await client.authenticate();
             user = user.user;
@@ -39,7 +41,7 @@ export default function UserProfilePage({ match }) {
             );
             posts = await posts.json();
             setPosts(posts);
-            console.log(posts);
+            console.log({ posts });
         } catch (error) {
             console.log(error);
         }

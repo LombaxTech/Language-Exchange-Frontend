@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import client from "../feathers";
 import Post from "./Post";
+import Typography from "@material-ui/core/Typography";
 import InfiniteScroll from "react-infinite-scroll-component";
+
+import "../styles/targetLanguagePosts.scss";
 
 export default function FollowingPosts() {
     const [user, setUser] = useState({});
@@ -91,33 +94,37 @@ export default function FollowingPosts() {
 
     return (
         <div className="following-posts-page">
-            <h1>Following Posts</h1>
-            <InfiniteScroll
-                dataLength={posts.length}
-                next={fetchMorePosts}
-                hasMore={hasMore}
-                loader={<h4>Loading...</h4>}
-                endMessage={
-                    <p style={{ textAlign: "center" }}>
-                        <b>Yay! You have seen it all</b>
-                    </p>
-                }
-            >
-                {posts.map((post) => (
-                    <Post
-                        key={post._id}
-                        profilePictureId={post.user.profilePictureId}
-                        name={post.user.name}
-                        createdAt={post.createdAt}
-                        postText={post.text}
-                        numberOfComments={post.comments.length}
-                        numberOfLikes={post.likes.length}
-                        isOwnPost={post.user._id === user._id}
-                        postId={post._id}
-                        user={post.user}
-                    />
-                ))}
-            </InfiniteScroll>
+            <div className="main">
+                <Typography variant="h4">Following</Typography>
+
+                <InfiniteScroll
+                    className="infinite-scroll-component"
+                    dataLength={posts.length}
+                    next={fetchMorePosts}
+                    hasMore={hasMore}
+                    loader={<h4>Loading...</h4>}
+                    endMessage={
+                        <p style={{ textAlign: "center" }}>
+                            <b>Yay! You have seen it all</b>
+                        </p>
+                    }
+                >
+                    {posts.map((post) => (
+                        <Post
+                            key={post._id}
+                            profilePictureId={post.user.profilePictureId}
+                            name={post.user.name}
+                            createdAt={post.createdAt}
+                            postText={post.text}
+                            numberOfComments={post.comments.length}
+                            numberOfLikes={post.likes.length}
+                            isOwnPost={post.user._id === user._id}
+                            postId={post._id}
+                            user={post.user}
+                        />
+                    ))}
+                </InfiniteScroll>
+            </div>
         </div>
     );
 }

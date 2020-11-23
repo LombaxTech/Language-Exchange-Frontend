@@ -7,8 +7,9 @@ import Message from "./Message";
 
 import { smallBigString } from "../helperFunctions";
 import { CodeSharp } from "@material-ui/icons";
-
 import "../styles/chatroom.scss";
+import io from "socket.io-client";
+const socket = io("http://localhost:3030");
 
 export default function Chatroom({ match }) {
     const chatService = client.service("chat");
@@ -22,6 +23,9 @@ export default function Chatroom({ match }) {
     const [messages, setMessages] = useState([]);
 
     async function init() {
+        socket.emit("join room", match.params.partnerId);
+        socket.on("message", (e) => setMessages(e.messages));
+
         try {
             let currentPageUser = await usersService.get(
                 match.params.partnerId
@@ -98,16 +102,18 @@ export default function Chatroom({ match }) {
     const sendMessage = async () => {
         if (!chatExists) {
             createChat();
-            createMessage();
-            return;
         }
-        return createMessage();
+        createMessage();
+        socket.emit("message", {
+            messages: [...messages, { text: msg, sender: user }],
+            roomName: match.params.partnerId,
+        });
     };
 
     const DisplayMessages = () => (
         <div className="messages">
-            {messages.map((message) => (
-                <Message key={message._id} message={message} />
+            {messages.map((message, i) => (
+                <Message key={i} message={message} />
             ))}
         </div>
     );
@@ -125,6 +131,16 @@ export default function Chatroom({ match }) {
                 multiline
                 rowsMax={3}
             />
+            {/* <Button
+                onClick={() => {
+                    socket.emit("message", {
+                        messages: [...messages, { text: msg, sender: user }],
+                        roomName: match.params.partnerId,
+                    });
+                }}
+            >
+                Test Socket
+            </Button> */}
             <Button variant="contained" onClick={sendMessage} color="primary">
                 Send Message
             </Button>

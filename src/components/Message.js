@@ -4,8 +4,6 @@ import "../styles/message.scss";
 import Typography from "@material-ui/core/Typography";
 
 export default function Message({ message }) {
-    console.log({ message });
-
     return (
         <div className="message">
             <Avatar alt="Remy Sharp" src={message.sender.profilePictureId} />

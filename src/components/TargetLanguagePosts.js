@@ -32,17 +32,6 @@ export default function TargetLanguagePosts() {
 
     return (
         <div className="target-language-posts-page">
-            {/* <div className="sidebar">
-                <div className="learning">
-                    <Typography variant="h6">Learning</Typography>
-                </div>
-                <div className="classmates">
-                    <Typography variant="h6">Classmates</Typography>
-                </div>
-                <div className="following">
-                    <Typography variant="h6">Following</Typography>
-                </div>
-            </div> */}
             <div className="main">
                 <Typography variant="h4">Target Language Posts</Typography>
                 {posts.map((post) => (
@@ -62,4 +51,18 @@ export default function TargetLanguagePosts() {
             </div>
         </div>
     );
+}
+
+{
+    /* <div className="sidebar">
+                <div className="learning">
+                    <Typography variant="h6">Learning</Typography>
+                </div>
+                <div className="classmates">
+                    <Typography variant="h6">Classmates</Typography>
+                </div>
+                <div className="following">
+                    <Typography variant="h6">Following</Typography>
+                </div>
+            </div> */
 }

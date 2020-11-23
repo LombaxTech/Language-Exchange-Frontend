@@ -9,7 +9,7 @@
     // background: yellow;
 
     &:hover {
-        cursor: pointer !important;
+        // cursor: pointer !important;
     }
 }
 
@@ -20,6 +20,12 @@
     // padding: 10px;
     // background: green;
     margin-bottom: 10px;
+
+    .profile-pic {
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 
 .post-info {

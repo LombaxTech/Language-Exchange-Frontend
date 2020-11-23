@@ -88,14 +88,14 @@ export default function Navbar() {
                         </div>
                     </Typography>
                     <div style={{ display: "flex" }}>
-                        <Button
+                        {/* <Button
                             color="inherit"
                             onClick={() =>
                                 (window.location = "/targetlanguage")
                             }
                         >
                             Learn
-                        </Button>{" "}
+                        </Button>{" "} */}
                         <Button
                             color="inherit"
                             onClick={() => (window.location = "/following")}
