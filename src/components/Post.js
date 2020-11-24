@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Avatar, MenuItem } from "@material-ui/core";
 import { ChatBubbleOutline, FavoriteBorder } from "@material-ui/icons";
@@ -6,6 +6,9 @@ import Typography from "@material-ui/core/Typography";
 
 import client from "../feathers";
 import "../styles/post.scss";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:3030");
 
 export default function Post({
     profilePictureId,
@@ -21,8 +24,24 @@ export default function Post({
 }) {
     const postsService = client.service("posts");
 
+    const [noOfLikes, setNoOfLikes] = useState(numberOfLikes);
+
     // createdAt = new Date(createdAt);
-    console.log(typeof new Date(createdAt).getDate());
+    // console.log(typeof new Date(createdAt).getDate());
+
+    const init = async () => {
+        socket.emit("join room", postId);
+
+        socket.on("like", (e) => {
+            if (postId === e.roomName) {
+                setNoOfLikes(e.result.likes.length);
+            }
+        });
+    };
+
+    useEffect(() => {
+        init();
+    }, []);
 
     const deletePost = async () => {
         try {
@@ -44,13 +63,14 @@ export default function Post({
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        likerId: currentUserId,
+                        likerId: user._id,
                         // likerId: "5f4c068adeaf644ddc017f16",
                     }),
                 }
             );
             result = await result.json();
             console.log(result);
+            socket.emit("like", { roomName: postId, result });
         } catch (error) {
             console.log(error);
         }
@@ -60,7 +80,6 @@ export default function Post({
         <div className="post">
             <div className="user-info">
                 <Avatar
-                    alt="Remy Sharp"
                     src={profilePictureId}
                     onClick={() => (window.location = `/user/${user._id}`)}
                     className="profile-pic"
@@ -84,7 +103,7 @@ export default function Post({
                         {numberOfComments}
                     </MenuItem>{" "}
                     <MenuItem className="likes" onClick={like}>
-                        <FavoriteBorder /> {numberOfLikes}
+                        <FavoriteBorder /> {noOfLikes}
                     </MenuItem>
                 </div>
                 {isOwnPost && <button onClick={deletePost}>Delete</button>}
