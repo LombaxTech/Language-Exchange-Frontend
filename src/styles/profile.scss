@@ -38,3 +38,46 @@ body {
 .edit-profile {
     // width: 50%;
 }
+
+.following-modal,
+.followers-modal {
+    // display: none !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+    // max-height: calc(100vh - 210px) !important;
+    // overflow-y: auto !important;
+}
+
+.user-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .name-pic {
+        display: flex;
+        margin: 10px;
+        padding: 10px;
+        align-items: center;
+
+        .profile-pic,
+        .profile-name {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    // justify-content: space-evenly;
+    // background: yellow;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+    .profile-name {
+        margin-left: 20px;
+    }
+}
+
+// .following-modal-body {
+//     overflow-y: scroll !important;
+//     overflow-x: hidden !important;
+//     max-height: calc(100vh - 210px) !important;
+//     overflow-y: auto !important;
+// }

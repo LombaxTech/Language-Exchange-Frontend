@@ -1,15 +1,23 @@
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import Modal from "@material-ui/core/Modal";
+
+import "../styles/post.scss";
 
 export default function Experimental() {
-    const [startDate, setStartDate] = useState(new Date());
+    const [open, setOpen] = useState(true);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <div>
-            <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-            />
+            <Modal open={open} onClose={handleClose} className="my-modal">
+                <div>hello</div>
+            </Modal>
         </div>
     );
 }

@@ -4,6 +4,10 @@ import { Image, Transformation } from "cloudinary-react";
 import Post from "./Post";
 import { Link } from "react-router-dom";
 
+import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+
 import "../styles/userprofilepage.scss";
 
 export default function UserProfilePage({ match }) {
@@ -74,18 +78,42 @@ export default function UserProfilePage({ match }) {
     const unfollow = async () => {};
 
     return (
-        <div>
-            <h1>{currentPageUser.name}</h1>
-            <Image src={currentPageUser.profilePictureId} height={100} />
+        <div className="user-profile-page">
+            <Typography variant="h4">{currentPageUser.name}</Typography>
+            <Avatar
+                src={currentPageUser.profilePictureId}
+                className="user-profile-pic"
+            />
+            <div className="message-follow">
+                <Button
+                    variant="contained"
+                    onClick={() =>
+                        (window.location = `/chat/${currentPageUserId}`)
+                    }
+                >
+                    <Typography variant="h5">Message</Typography>
+                </Button>
 
-            <Link to={`/chat/${currentPageUserId}`}>
-                <h2>Message</h2>
-            </Link>
-
-            {!following && <button onClick={follow}>Follow</button>}
-
-            {following && <button onClick={unfollow}>Unfollow</button>}
-
+                {!following && (
+                    <Button
+                        variant="contained"
+                        onClick={follow}
+                        className="follow-button"
+                    >
+                        <Typography variant="h5">Follow</Typography>
+                    </Button>
+                )}
+                {following && (
+                    <Button
+                        variant="outlined"
+                        onClick={unfollow}
+                        className="unfollow-button"
+                    >
+                        <Typography variant="h5">Unfollow</Typography>
+                    </Button>
+                )}
+            </div>
+            <Typography variant="h4">Posts</Typography>
             {posts.map((post) => (
                 <Post
                     key={post._id}

@@ -1,3 +1,28 @@
 body {
     // display: none;
 }
+
+.user-profile-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    .user-profile-pic {
+        min-width: 200px;
+        min-height: 200px;
+        margin: 10px 0;
+    }
+
+    .message-follow {
+        display: flex;
+        flex-direction: column;
+
+        .follow-button,
+        .unfollow-button {
+            margin: 10px 0;
+        }
+    }
+}
