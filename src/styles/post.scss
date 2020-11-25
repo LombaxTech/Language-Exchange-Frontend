@@ -1,4 +1,5 @@
-.post {
+.post,
+.full-post {
     // border: 0.5px solid black;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     padding: 20px;
@@ -29,9 +30,6 @@
 }
 
 .post-info {
-    // padding: 5px;
-    // background: orange;
-
     .post-text {
         // background: red;
         text-align: center;
@@ -45,15 +43,56 @@
     }
 }
 
-// .comments-icon,
-// .likes {
-//     width: fit-content !important;
-//     display: inline !important;
-// }
+.full-post {
+    // background: yellow;
+    margin: 20px auto;
+    max-width: 800px;
 
-.my-modal {
-    // display: none;
-    // position: absolute;
-    // width: 400px;
-    // background: white;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: none;
+    // .post {
+    //     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0;
+    // }
+    //     flex: 1;
+    //     // padding: 20px;
+    // }
+
+    // .comment {
+    //     // background: red;
+    //     display: flex;
+
+    //     .comment-input {
+    //         flex: 1;
+    //     }
+    // }
+}
+
+.comments {
+    margin-top: 20px;
+}
+.comment {
+    // background: yellow;
+    margin: 0 10px;
+    width: 100%;
+    max-width: 700px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    // box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-bottom: 0.5px solid black;
+
+    &:nth-child(1) {
+        border-top: 0.5px solid black;
+    }
+
+    .comment-profile-pic {
+        margin-right: 15px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }

@@ -98,7 +98,10 @@ export default function Post({
                     <Typography variant="body">{postText}</Typography>
                 </div>
                 <div className="comments-likes">
-                    <MenuItem className="comments">
+                    <MenuItem
+                        className="comments"
+                        onClick={() => (window.location = `/post/${postId}`)}
+                    >
                         <ChatBubbleOutline />
                         {numberOfComments}
                     </MenuItem>{" "}
