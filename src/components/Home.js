@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+
 import client from "../feathers";
-import { Link } from "react-router-dom";
-
-import AllUsers from "./AllUsers";
-import AllPosts from "./AllPosts";
 import TargetLanguagePosts from "./TargetLanguagePosts";
-
-import Post from "./Post";
-import io from "socket.io-client";
-const socket = io("http://localhost:3030");
+import "../styles/home.scss";
 
 export default function Home() {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -16,9 +12,6 @@ export default function Home() {
 
     async function init() {
         try {
-            socket.on("test", (e) => console.log(e));
-            socket.on("test info", (e) => console.log(e));
-
             let result = await client.authenticate();
             setUser(result.user);
             setLoggedIn(true);
@@ -27,17 +20,32 @@ export default function Home() {
             setLoggedIn(false);
         }
     }
-
     useEffect(() => {
         init();
     }, []);
 
-    socket.on("connected", (e) => console.log(e));
-    socket.on("test info", (info) => console.log("test received"));
+    const Welcome = () => (
+        <div className="welcome">
+            <div className="bg-image"></div>
+            <div className="call-to-action">
+                <Typography variant="h2">Start Learning NOW!</Typography>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    className="sign-up-button"
+                    fullWidth={true}
+                >
+                    Sign Up
+                </Button>
+            </div>
+        </div>
+    );
 
     return (
         <div>
-            <TargetLanguagePosts />
+            {loggedIn && <TargetLanguagePosts />}
+            {!loggedIn && <Welcome />}
         </div>
     );
 }

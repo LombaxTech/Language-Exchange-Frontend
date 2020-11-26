@@ -24,9 +24,9 @@ export default function FullPost({ match }) {
 
     async function init() {
         try {
-            socket.on("comment", (e) => {
-                if (post._id === e._id) {
-                    setComments(e.comments);
+            socket.on("comment", ({ currentUser, result }) => {
+                if (post._id === result._id) {
+                    setComments(result.comments);
                 }
             });
 
@@ -106,7 +106,7 @@ export default function FullPost({ match }) {
                 }
             );
             result = await result.json();
-            socket.emit("comment", result);
+            socket.emit("comment", { currentUser, result });
             console.log(result);
             // socket.emit("like", { roomName: postId, result });
         } catch (error) {
