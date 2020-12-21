@@ -81,14 +81,14 @@ export default function Signup() {
 
     const signup = async (e) => {
         e.preventDefault();
-        return console.log({
-            email,
-            name,
-            password,
-            targetLanguage,
-            nativeLanguage,
-            file,
-        });
+        // return console.log({
+        //     email,
+        //     name,
+        //     password,
+        //     targetLanguage,
+        //     nativeLanguage,
+        //     file,
+        // });
         setLoading(true);
         try {
             let user = await usersService.create({

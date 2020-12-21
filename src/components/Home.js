@@ -35,6 +35,7 @@ export default function Home() {
                     size="large"
                     className="sign-up-button"
                     fullWidth={true}
+                    onClick={() => (window.location = "/signup")}
                 >
                     Sign Up
                 </Button>

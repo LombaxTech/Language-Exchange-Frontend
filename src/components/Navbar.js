@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import client from "../feathers";
-
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -11,11 +10,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AddCommentOutlinedIcon from "@material-ui/icons/AddCommentOutlined";
 import MailIcon from "@material-ui/icons/Mail";
-
 import { Avatar } from "@material-ui/core";
-
 import AddPost from "./AddPost";
-
 import "../styles/navbar.scss";
 
 export default function Navbar() {
@@ -39,14 +35,8 @@ export default function Navbar() {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-
-    const handleProfileMenuOpen = (e) => {
-        setAnchorEl(e.currentTarget);
-    };
+    const handleMenuClose = () => setAnchorEl(null);
+    const handleProfileMenuOpen = (e) => setAnchorEl(e.currentTarget);
 
     const renderMenu = (
         <Menu
@@ -67,12 +57,64 @@ export default function Navbar() {
             <MenuItem
                 onClick={async () => {
                     await client.logout();
-                    window.location.reload();
+                    window.location = "/";
                 }}
             >
                 Sign Out
             </MenuItem>
         </Menu>
+    );
+
+    const loggedInLinks = () => (
+        <div>
+            <Button
+                color="inherit"
+                onClick={() => (window.location = "/following")}
+            >
+                Following
+            </Button>
+            {/* <AddCommentOutlinedIcon className="add-post" /> */}
+            <AddPost />
+            <IconButton
+                style={{ color: "white" }}
+                onClick={() => {
+                    window.location = "/chats";
+                }}
+            >
+                <MailIcon />
+            </IconButton>
+            <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-haspopup="true"
+                color="inherit"
+                onClick={handleProfileMenuOpen}
+            >
+                <Avatar
+                    alt="Sheldon Cooper"
+                    src={user.profilePictureId}
+                    style={{ alignSelf: "center" }}
+                />
+                {/* <AccountCircle /> */}
+            </IconButton>
+        </div>
+    );
+
+    const loggedOutLinks = () => (
+        <div>
+            <Button
+                color="inherit"
+                onClick={() => (window.location = "/signin")}
+            >
+                Login
+            </Button>
+            <Button
+                color="inherit"
+                onClick={() => (window.location = "/signup")}
+            >
+                SIGN UP
+            </Button>
+        </div>
     );
 
     return (
@@ -88,68 +130,8 @@ export default function Navbar() {
                         </div>
                     </Typography>
                     <div style={{ display: "flex" }}>
-                        {/* <Button
-                            color="inherit"
-                            onClick={() =>
-                                (window.location = "/targetlanguage")
-                            }
-                        >
-                            Learn
-                        </Button>{" "} */}
-                        <Button
-                            color="inherit"
-                            onClick={() => (window.location = "/following")}
-                        >
-                            Following
-                        </Button>{" "}
-                        {!loggedIn && (
-                            <div>
-                                <Button
-                                    color="inherit"
-                                    onClick={() =>
-                                        (window.location = "/signin")
-                                    }
-                                >
-                                    Login
-                                </Button>
-                                <Button
-                                    color="inherit"
-                                    onClick={() =>
-                                        (window.location = "/signup")
-                                    }
-                                >
-                                    SIGN UP
-                                </Button>
-                            </div>
-                        )}
-                        {loggedIn && (
-                            <div>
-                                {/* <AddCommentOutlinedIcon className="add-post" /> */}
-                                <AddPost />
-                                <IconButton
-                                    style={{ color: "white" }}
-                                    onClick={() => {
-                                        window.location = "/chats";
-                                    }}
-                                >
-                                    <MailIcon />
-                                </IconButton>
-                                <IconButton
-                                    edge="end"
-                                    aria-label="account of current user"
-                                    aria-haspopup="true"
-                                    color="inherit"
-                                    onClick={handleProfileMenuOpen}
-                                >
-                                    <Avatar
-                                        alt="Sheldon Cooper"
-                                        src={user.profilePictureId}
-                                        style={{ alignSelf: "center" }}
-                                    />
-                                    {/* <AccountCircle /> */}
-                                </IconButton>
-                            </div>
-                        )}
+                        {!loggedIn && loggedOutLinks()}
+                        {loggedIn && loggedInLinks()}
                     </div>
                 </Toolbar>
             </AppBar>

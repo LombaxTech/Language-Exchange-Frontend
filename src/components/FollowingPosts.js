@@ -101,11 +101,11 @@ export default function FollowingPosts() {
                     className="infinite-scroll-component"
                     dataLength={posts.length}
                     next={fetchMorePosts}
-                    hasMore={hasMore}
+                    hasMore={hasMore && posts.lenth > 0}
                     loader={<h4>Loading...</h4>}
                     endMessage={
                         <p style={{ textAlign: "center" }}>
-                            <b>Yay! You have seen it all</b>
+                            <b>No More Posts to Show</b>
                         </p>
                     }
                 >

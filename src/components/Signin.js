@@ -22,7 +22,7 @@ function Copyright() {
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
             <Link color="inherit" href="https://material-ui.com/">
-                RK TUTORS
+                RK Languages
             </Link>{" "}
             {new Date().getFullYear()}
             {"."}
@@ -52,19 +52,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signin() {
     const classes = useStyles();
-
     const usersService = client.service("users");
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    const updateEmailValue = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const updatePasswordValue = (e) => {
-        setPassword(e.target.value);
-    };
+    const updateEmailValue = (e) => setEmail(e.target.value);
+    const updatePasswordValue = (e) => setPassword(e.target.value);
 
     const signin = async (e) => {
         e.preventDefault();

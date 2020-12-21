@@ -75,7 +75,25 @@ export default function UserProfilePage({ match }) {
         }
     };
 
-    const unfollow = async () => {};
+    const unfollow = async () => {
+        try {
+            let result = await fetch(`http://localhost:3030/unfollow`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId: user._id,
+                    partnerId: currentPageUser._id,
+                }),
+            });
+            result = await result.json();
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <div className="user-profile-page">
