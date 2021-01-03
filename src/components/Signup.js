@@ -23,6 +23,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import { DropzoneArea } from "material-ui-dropzone";
+import "../styles/home.scss";
 
 function Copyright() {
     return (
@@ -157,6 +158,7 @@ export default function Signup() {
                                 autoFocus
                                 value={name}
                                 onChange={updateNameValue}
+                                className="white-bg"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -170,6 +172,7 @@ export default function Signup() {
                                 autoComplete="email"
                                 value={email}
                                 onChange={updateEmailValue}
+                                className="white-bg"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -184,6 +187,7 @@ export default function Signup() {
                                 autoComplete="current-password"
                                 value={password}
                                 onChange={updatePasswordValue}
+                                className="white-bg"
                             />
                         </Grid>
 
@@ -194,6 +198,7 @@ export default function Signup() {
                                 id="demo-simple-select"
                                 value={nativeLanguage}
                                 onChange={handleNativeLanguageChange}
+                                className="white-bg"
                             >
                                 <MenuItem value={"Eng"}>English</MenuItem>
                                 <MenuItem value={"Jpn"}>Japanese</MenuItem>
@@ -207,6 +212,7 @@ export default function Signup() {
                                 id="demo-simple-select"
                                 value={targetLanguage}
                                 onChange={handleTargetLanguageChange}
+                                className="white-bg"
                             >
                                 <MenuItem value={"Eng"}>English</MenuItem>
                                 <MenuItem value={"Jpn"}>Japanese</MenuItem>

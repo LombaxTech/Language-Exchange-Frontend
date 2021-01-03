@@ -28,7 +28,7 @@ export default function Home() {
         <div className="welcome">
             <div className="bg-image"></div>
             <div className="call-to-action">
-                <Typography variant="h2">Start Learning NOW!</Typography>
+                <Typography variant="h3">Start Learning NOW!</Typography>
                 <Button
                     variant="contained"
                     color="primary"
