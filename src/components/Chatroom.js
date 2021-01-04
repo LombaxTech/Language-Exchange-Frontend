@@ -149,7 +149,15 @@ export default function Chatroom({ match }) {
 
     return (
         <div className="chatroom-page">
-            <h1>{currentPageUser.name} Chat</h1>
+            <h1
+                className="current-page-user-name
+            "
+                onClick={() =>
+                    (window.location = `/user/${currentPageUser._id}`)
+                }
+            >
+                {currentPageUser.name} Chat
+            </h1>
             {DisplayMessages()}
             {/* <div className="messages"><Message message={}</div> */}
             {SendMessage()}

@@ -26,6 +26,12 @@
     }
 }
 
+.current-page-user-name {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 // body {
 //     // display: none;
 //     background: yellow !important;

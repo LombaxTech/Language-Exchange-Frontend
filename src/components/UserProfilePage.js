@@ -70,6 +70,7 @@ export default function UserProfilePage({ match }) {
             });
             result = await result.json();
             console.log(result);
+            window.location.reload();
         } catch (error) {
             console.log(error);
         }
@@ -90,6 +91,7 @@ export default function UserProfilePage({ match }) {
             });
             result = await result.json();
             console.log(result);
+            window.location.reload();
         } catch (error) {
             console.log(error);
         }

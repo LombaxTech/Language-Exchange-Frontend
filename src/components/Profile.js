@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import Post from "./Post";
 
 import Followers from "./Followers";
 import Following from "./Following";
@@ -17,7 +18,9 @@ import "../styles/profile.scss";
 export default function Profile() {
     const usersService = client.service("users");
     const [user, setUser] = useState({});
+    const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+
     async function init() {
         setLoading(true);
         let user = await client.authenticate();
@@ -28,6 +31,14 @@ export default function Profile() {
             user = await user.json();
             console.log(user);
             setUser(user);
+
+            let posts = await fetch(
+                `http://localhost:3030/custom-posts/user/${user._id}`
+            );
+            posts = await posts.json();
+            setPosts(posts);
+            console.log(posts);
+
             setLoading(false);
         } catch (error) {
             console.log(error);
@@ -39,6 +50,7 @@ export default function Profile() {
 
     const [followingShow, setFollowingShow] = useState(false);
     const [followersShow, setFollowersShow] = useState(false);
+    const [postsShow, setPostsShow] = useState(false);
 
     const UserCard = ({ profilePictureId, name, userId }) => (
         <div className="user-card">
@@ -98,12 +110,39 @@ export default function Profile() {
         </Modal>
     );
 
+    const PostsModal = () => (
+        <Modal
+            show={postsShow}
+            onHide={() => setPostsShow(false)}
+            centered
+            className="posts-modal"
+        >
+            <Modal.Body>
+                {posts.map((post) => (
+                    <Post
+                        key={post._id}
+                        profilePictureId={post.user.profilePictureId}
+                        name={post.user.name}
+                        createdAt={post.createdAt}
+                        postText={post.text}
+                        numberOfComments={post.comments.length}
+                        numberOfLikes={post.likes.length}
+                        isOwnPost={post.user._id === user._id}
+                        postId={post._id}
+                        user={post.user}
+                    />
+                ))}
+            </Modal.Body>
+        </Modal>
+    );
+
     if (loading) return <h1>Loading...</h1>;
 
     return (
         <div className="profile-page">
             {FollowingModal()}
             {FollowersModal()}
+            {PostsModal()}
             <div className="profile-pic-section">
                 <Avatar src={user.profilePictureId} className="profile-pic" />
             </div>
@@ -125,7 +164,10 @@ export default function Profile() {
                     </Button>{" "}
                 </div>
                 <div className="posts">
-                    <Button variant="outlined">
+                    <Button
+                        variant="outlined"
+                        onClick={() => setPostsShow(true)}
+                    >
                         <Typography variant="h5">Posts</Typography>
                     </Button>
                 </div>

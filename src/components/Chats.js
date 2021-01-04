@@ -19,9 +19,9 @@ const Chat = ({ partner, lastMessage }) => (
                 <Typography variant="h6" className="name">
                     {partner.name}
                 </Typography>
-                <Typography variant="body1" className="last-message">
+                {/* <Typography variant="body1" className="last-message">
                     Hey when is our next lesson?
-                </Typography>
+                </Typography> */}
             </div>
         </div>
         <div className="date">16:20 12/01/2020</div>

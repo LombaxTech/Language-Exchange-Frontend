@@ -30,7 +30,7 @@ function Copyright() {
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
             <Link color="inherit" href="https://material-ui.com/">
-                HelloTalk Web
+                RK Language Learning
             </Link>{" "}
             {new Date().getFullYear()}
             {"."}
@@ -190,7 +190,6 @@ export default function Signup() {
                                 className="white-bg"
                             />
                         </Grid>
-
                         <Grid item xs={12}>
                             <InputLabel>Native Language</InputLabel>
                             <Select

@@ -126,7 +126,7 @@ export default function Navbar() {
                             onClick={() => (window.location = "/")}
                             className="title-text"
                         >
-                            HT CLONE
+                            RK Language Learning
                         </div>
                     </Typography>
                     <div style={{ display: "flex" }}>

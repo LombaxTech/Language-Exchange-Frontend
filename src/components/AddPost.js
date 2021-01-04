@@ -48,6 +48,7 @@ export default function AddPost() {
             let result = await postsService.create(post);
             socket.emit("post", result);
             console.log(result);
+            handleClose();
         } catch (error) {
             console.log(error);
         }

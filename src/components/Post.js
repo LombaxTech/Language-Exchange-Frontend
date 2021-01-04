@@ -47,6 +47,7 @@ export default function Post({
         try {
             let result = await postsService.remove(postId);
             console.log(result);
+            window.location.reload();
         } catch (error) {
             console.log(error);
         }
