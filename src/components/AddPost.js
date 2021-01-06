@@ -7,7 +7,7 @@ import client from "../feathers";
 import "../styles/addpost.scss";
 
 import io from "socket.io-client";
-const socket = io("http://localhost:3030");
+const socket = io(process.env.REACT_APP_API_BASE_URL);
 
 export default function AddPost() {
     const postsService = client.service("posts");

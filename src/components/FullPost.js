@@ -13,7 +13,7 @@ import "../styles/post.scss";
 import io from "socket.io-client";
 import "../styles/post.scss";
 
-const socket = io("http://localhost:3030");
+const socket = io(process.env.REACT_APP_API_BASE_URL);
 
 export default function FullPost({ match }) {
     const [post, setPost] = useState({});
@@ -34,7 +34,7 @@ export default function FullPost({ match }) {
             setCurrentUser(currentUser.user);
 
             let post = await fetch(
-                `http://localhost:3030/custom-post/${match.params.postId}`
+                `${process.env.REACT_APP_API_BASE_URL}/custom-post/${match.params.postId}`
             );
             post = await post.json();
             setPost(post);
@@ -65,7 +65,7 @@ export default function FullPost({ match }) {
     const like = async () => {
         try {
             let result = await fetch(
-                `http://localhost:3030/custom-post/${post._id}/like`,
+                `${process.env.REACT_APP_API_BASE_URL}/custom-post/${post._id}/like`,
                 {
                     method: "POST",
                     headers: {
@@ -92,7 +92,7 @@ export default function FullPost({ match }) {
         // console.log("comment");
         try {
             let result = await fetch(
-                `http://localhost:3030/custom-post/${post._id}/comment`,
+                `${process.env.REACT_APP_API_BASE_URL}/custom-post/${post._id}/comment`,
                 {
                     method: "POST",
                     headers: {

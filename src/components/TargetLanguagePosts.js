@@ -16,7 +16,7 @@ export default function TargetLanguagePosts() {
             setUser(user);
 
             let result = await fetch(
-                `http://localhost:3030/custom-posts/${user.targetLanguage}`
+                `${process.env.REACT_APP_API_BASE_URL}/custom-posts/${user.targetLanguage}`
             );
             result = await result.json();
             console.log(result);

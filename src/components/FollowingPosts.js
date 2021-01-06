@@ -23,7 +23,7 @@ export default function FollowingPosts() {
             for (let userId of user.following) {
                 try {
                     let result = await fetch(
-                        `http://localhost:3030/custom-posts/user/${userId}/0/10`
+                        `${process.env.REACT_APP_API_BASE_URL}/custom-posts/user/${userId}/0/10`
                     );
                     result = await result.json();
                     console.log(result);
@@ -61,9 +61,9 @@ export default function FollowingPosts() {
             for (let userId of user.following) {
                 try {
                     let result = await fetch(
-                        `http://localhost:3030/custom-posts/user/${userId}/${
-                            page * 10
-                        }/${10}`
+                        `${
+                            process.env.REACT_APP_API_BASE_URL
+                        }/custom-posts/user/${userId}/${page * 10}/${10}`
                     );
                     result = await result.json();
                     console.log(result);

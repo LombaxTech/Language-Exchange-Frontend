@@ -9,7 +9,7 @@ import { smallBigString } from "../helperFunctions";
 import { CodeSharp } from "@material-ui/icons";
 import "../styles/chatroom.scss";
 import io from "socket.io-client";
-const socket = io("http://localhost:3030");
+const socket = io(process.env.REACT_APP_API_BASE_URL);
 
 export default function Chatroom({ match }) {
     const chatService = client.service("chat");
@@ -41,7 +41,7 @@ export default function Chatroom({ match }) {
             let chatId = smallBigString(userId, partnerId);
 
             let chat = await fetch(
-                `http://localhost:3030/custom-chat/${chatId}`
+                `${process.env.REACT_APP_API_BASE_URL}/custom-chat/${chatId}`
             );
             chat = await chat.json();
             console.log(chat);
@@ -83,14 +83,17 @@ export default function Chatroom({ match }) {
                 sender: user._id,
             };
 
-            let result = await fetch(`http://localhost:3030/message`, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(message),
-            });
+            let result = await fetch(
+                `${process.env.REACT_APP_API_BASE_URL}/message`,
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(message),
+                }
+            );
             result = await result.json();
 
             console.log(result);
@@ -159,12 +162,7 @@ export default function Chatroom({ match }) {
                 {currentPageUser.name} Chat
             </h1>
             {DisplayMessages()}
-            {/* <div className="messages"><Message message={}</div> */}
             {SendMessage()}
-
-            {/* <DisplayMessages /> */}
-            {/* <SendMessage /> */}
-            {/* <TextField valu e={msg} onChange={handleMsgChange} /> */}
         </div>
     );
 }

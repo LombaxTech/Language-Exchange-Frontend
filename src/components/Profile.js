@@ -27,13 +27,15 @@ export default function Profile() {
         user = user.user;
 
         try {
-            user = await fetch(`http://localhost:3030/custom-user/${user._id}`);
+            user = await fetch(
+                `${process.env.REACT_APP_API_BASE_URL}/custom-user/${user._id}`
+            );
             user = await user.json();
             console.log(user);
             setUser(user);
 
             let posts = await fetch(
-                `http://localhost:3030/custom-posts/user/${user._id}`
+                `${process.env.REACT_APP_API_BASE_URL}/custom-posts/user/${user._id}`
             );
             posts = await posts.json();
             setPosts(posts);

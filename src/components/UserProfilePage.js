@@ -41,7 +41,7 @@ export default function UserProfilePage({ match }) {
             }
 
             let posts = await fetch(
-                `http://localhost:3030/custom-posts/user/${currentUser._id}`
+                `${process.env.REACT_APP_API_BASE_URL}/custom-posts/user/${currentUser._id}`
             );
             posts = await posts.json();
             setPosts(posts);
@@ -57,17 +57,20 @@ export default function UserProfilePage({ match }) {
 
     const follow = async () => {
         try {
-            let result = await fetch(`http://localhost:3030/follow`, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    userId: user._id,
-                    partnerId: currentPageUser._id,
-                }),
-            });
+            let result = await fetch(
+                `${process.env.REACT_APP_API_BASE_URL}/follow`,
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userId: user._id,
+                        partnerId: currentPageUser._id,
+                    }),
+                }
+            );
             result = await result.json();
             console.log(result);
             window.location.reload();
@@ -78,17 +81,20 @@ export default function UserProfilePage({ match }) {
 
     const unfollow = async () => {
         try {
-            let result = await fetch(`http://localhost:3030/unfollow`, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    userId: user._id,
-                    partnerId: currentPageUser._id,
-                }),
-            });
+            let result = await fetch(
+                `${process.env.REACT_APP_API_BASE_URL}/unfollow`,
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userId: user._id,
+                        partnerId: currentPageUser._id,
+                    }),
+                }
+            );
             result = await result.json();
             console.log(result);
             window.location.reload();

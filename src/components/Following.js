@@ -8,7 +8,7 @@ export default function Following({ userId }) {
         try {
             console.log(userId);
             let user = await fetch(
-                `http://localhost:3030/custom-user/${userId}`
+                `${process.env.REACT_APP_API_BASE_URL}/custom-user/${userId}`
             );
             user = await user.json();
             setFollowing(user.following);
@@ -20,17 +20,20 @@ export default function Following({ userId }) {
 
     const unfollow = async (partnerId) => {
         try {
-            let result = await fetch(`http://localhost:3030/unfollow`, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    userId,
-                    partnerId,
-                }),
-            });
+            let result = await fetch(
+                `${process.env.REACT_APP_API_BASE_URL}/unfollow`,
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userId,
+                        partnerId,
+                    }),
+                }
+            );
             result = await result.json();
             console.log(result);
             setFollowing(following.filter((user) => user._id !== partnerId));

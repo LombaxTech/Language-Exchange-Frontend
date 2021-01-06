@@ -20,7 +20,7 @@ export default function AddComment({ post, currentUser }) {
             console.log({ post, currentUser });
 
             let result = await fetch(
-                `http://localhost:3030/custom-post/${post._id}/comment`,
+                `${process.env.REACT_APP_API_BASE_URL}/custom-post/${post._id}/comment`,
                 {
                     method: "POST",
                     headers: {

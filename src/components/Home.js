@@ -10,6 +10,8 @@ export default function Home() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState({});
 
+    console.log(process.env.REACT_APP_API_BASE_URL);
+
     async function init() {
         try {
             let result = await client.authenticate();

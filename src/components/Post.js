@@ -8,7 +8,7 @@ import client from "../feathers";
 import "../styles/post.scss";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:3030");
+const socket = io(process.env.REACT_APP_API_BASE_URL);
 
 export default function Post({
     profilePictureId,
@@ -56,7 +56,7 @@ export default function Post({
     const like = async () => {
         try {
             let result = await fetch(
-                `http://localhost:3030/custom-post/${postId}/like`,
+                `${process.env.REACT_APP_API_BASE_URL}/custom-post/${postId}/like`,
                 {
                     method: "POST",
                     headers: {

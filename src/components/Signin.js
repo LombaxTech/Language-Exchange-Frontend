@@ -16,6 +16,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import "../styles/home.scss";
 
 function Copyright() {
     return (
@@ -96,6 +97,7 @@ export default function Signin() {
                         autoComplete="email"
                         autoFocus
                         value={email}
+                        className="white-bg"
                         onChange={updateEmailValue}
                     />
                     <TextField
@@ -110,6 +112,7 @@ export default function Signin() {
                         autoComplete="current-password"
                         value={password}
                         onChange={updatePasswordValue}
+                        className="white-bg"
                     />
                     <Button
                         type="submit"
