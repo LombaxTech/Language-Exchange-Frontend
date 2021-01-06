@@ -4,7 +4,7 @@ import Post from "./Post";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import io from "socket.io-client";
-const socket = io("http://localhost:3030");
+const socket = io(process.env.REACT_APP_API_BASE_URL);
 
 export default function AllPosts({ currentUser }) {
     const postsService = client.service("posts");
@@ -20,7 +20,7 @@ export default function AllPosts({ currentUser }) {
 
         try {
             let result = await fetch(
-                "http://localhost:3030/custom-posts/paginate/0/20"
+                `${process.env.REACT_APP_API_BASE_URL}/custom-posts/paginate/0/20`
             );
             result = await result.json();
             // console.log(result);
@@ -44,7 +44,9 @@ export default function AllPosts({ currentUser }) {
     const fetchMorePosts = async () => {
         try {
             let newPosts = await fetch(
-                `http://localhost:3030/custom-posts/paginate/${page * 20}/20`
+                `${process.env.REACT_APP_API_BASE_URL}/custom-posts/paginate/${
+                    page * 20
+                }/20`
             );
             newPosts = await newPosts.json();
             console.log(newPosts);
