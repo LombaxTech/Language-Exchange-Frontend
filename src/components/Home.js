@@ -30,7 +30,9 @@ export default function Home() {
         <div className="welcome">
             <div className="bg-image"></div>
             <div className="call-to-action">
-                <Typography variant="h3">Start Learning NOW!</Typography>
+                <Typography variant="h1" className="welcome-title">
+                    Start <br/> Learning <br/> NOW!
+                </Typography>
                 <Button
                     variant="contained"
                     color="primary"
@@ -52,3 +54,23 @@ export default function Home() {
         </div>
     );
 }
+
+
+// const Welcome = () => (
+//         <div className="welcome">
+//             <div className="bg-image"></div>
+//             <div className="call-to-action">
+//                 <Typography variant="h3">Start Learning NOW!</Typography>
+//                 <Button
+//                     variant="contained"
+//                     color="primary"
+//                     size="large"
+//                     className="sign-up-button"
+//                     fullWidth={true}
+//                     onClick={() => (window.location = "/signup")}
+//                 >
+//                     Sign Up
+//                 </Button>
+//             </div>
+//         </div>
+//     );
