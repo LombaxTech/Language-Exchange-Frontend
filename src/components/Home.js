@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import client from "../feathers";
 import TargetLanguagePosts from "./TargetLanguagePosts";
 import "../styles/home.scss";
+import Camera from "../images/testImage.png";
 
 export default function Home() {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -27,11 +28,11 @@ export default function Home() {
     }, []);
 
     const Welcome = () => (
-        <div className="welcome">
+        <div className="welcome ">
             <div className="bg-image"></div>
             <div className="call-to-action">
                 <Typography variant="h1" className="welcome-title">
-                    Start <br/> Learning <br/> NOW!
+                    Start <br /> Learning <br /> NOW!
                 </Typography>
                 <Button
                     variant="contained"
@@ -47,14 +48,22 @@ export default function Home() {
         </div>
     );
 
+    const Test = () => (
+        <div className="w-full h-full bg-white flex flex-col justify-center items-center">
+            <h1 className="text-center mt-4 mb-8">Camera</h1>
+            <img src={Camera} className="mr-12" />
+        </div>
+    );
+
     return (
         <div>
             {loggedIn && <TargetLanguagePosts />}
-            {!loggedIn && <Welcome />}
+            {/* {!loggedIn && <Welcome />} */}
+
+            {!loggedIn && <Test />}
         </div>
     );
 }
-
 
 // const Welcome = () => (
 //         <div className="welcome">
