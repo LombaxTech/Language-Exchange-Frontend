@@ -4,6 +4,10 @@
 
 @layer base {
     .button {
-        @apply px-8 py-4 rounded-lg;
+        @apply px-4 py-2 rounded-xl;
+    }
+
+    .bgImage {
+        background-image: url("./images/topography.svg");
     }
 }

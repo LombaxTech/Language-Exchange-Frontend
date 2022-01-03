@@ -5,7 +5,7 @@ import { ChatBubbleOutline, FavoriteBorder } from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
 
 import client from "../feathers";
-import "../styles/post.scss";
+// import "../styles/post.scss";
 import io from "socket.io-client";
 
 const socket = io(process.env.REACT_APP_API_BASE_URL);
@@ -23,12 +23,9 @@ export default function Post({
     currentUserId,
 }) {
     const postsService = client.service("posts");
-
     const [noOfLikes, setNoOfLikes] = useState(numberOfLikes);
-
     // createdAt = new Date(createdAt);
     // console.log(typeof new Date(createdAt).getDate());
-
     const init = async () => {
         socket.emit("join room", postId);
 
@@ -38,7 +35,6 @@ export default function Post({
             }
         });
     };
-
     useEffect(() => {
         init();
     }, []);
@@ -78,39 +74,60 @@ export default function Post({
     };
 
     return (
-        <div className="post">
-            <div className="user-info">
+        <div className=" border border-gray-500 m-0 shadow-none flex gap-6 p-4  bg-gray-200">
+            {/* Name and Profile Pic */}
+            <div
+                className="flex flex-col justify-center items-center cursor-pointer"
+                style={{ minWidth: "110px" }}
+            >
                 <Avatar
                     src={profilePictureId}
                     onClick={() => (window.location = `/user/${user._id}`)}
                     className="profile-pic"
                 />
-                <Typography variant="h5">{name}</Typography>
+                <h4 className="">{name}</h4>
+            </div>
 
-                <div className="post-time">
-                    <Typography variant="h6">
+            {/* Rest of Info */}
+
+            <div className="flex-1 p-2 flex flex-col gap-6">
+                <div className="post-time text-center ">
+                    <h4 className="font-light">
                         {new Date(createdAt).getDate().toString()}/
                         {new Date(createdAt).getMonth().toString()}
-                    </Typography>
+                    </h4>
                 </div>
-            </div>
-            <div className="post-info">
-                <div className="post-text">
+
+                <div
+                    className="p-4  my-2 border border-gray-200 bg-white rounded-xl font-semibold cursor-pointer"
+                    onClick={() => (window.location = `/post/${postId}`)}
+                >
                     <Typography variant="body">{postText}</Typography>
                 </div>
-                <div className="comments-likes">
-                    <MenuItem
-                        className="comments"
-                        onClick={() => (window.location = `/post/${postId}`)}
-                    >
-                        <ChatBubbleOutline />
-                        {numberOfComments}
-                    </MenuItem>{" "}
-                    <MenuItem className="likes" onClick={like}>
-                        <FavoriteBorder /> {noOfLikes}
-                    </MenuItem>
+                <div className=" flex justify-center ">
+                    <div className="flex opacity-50">
+                        <MenuItem
+                            className="comments hover:bg-red-500"
+                            onClick={() =>
+                                (window.location = `/post/${postId}`)
+                            }
+                        >
+                            <ChatBubbleOutline />
+                            {numberOfComments}
+                        </MenuItem>{" "}
+                        <MenuItem className="likes" onClick={like}>
+                            <FavoriteBorder /> {noOfLikes}
+                        </MenuItem>
+                    </div>
+                    {isOwnPost && (
+                        <button
+                            className="px-6 py-1 rounded-lg  bg-teal text-white hover:bg-white  hover:border-2 hover:border-teal hover:text-teal"
+                            onClick={deletePost}
+                        >
+                            Delete Post
+                        </button>
+                    )}
                 </div>
-                {isOwnPost && <button onClick={deletePost}>Delete</button>}
             </div>
         </div>
     );

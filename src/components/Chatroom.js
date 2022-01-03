@@ -7,7 +7,9 @@ import Message from "./Message";
 
 import { smallBigString } from "../helperFunctions";
 import { CodeSharp } from "@material-ui/icons";
-import "../styles/chatroom.scss";
+// import "../styles/chatroom.scss";
+import { Scrollbars } from "react-custom-scrollbars";
+
 import io from "socket.io-client";
 const socket = io(process.env.REACT_APP_API_BASE_URL);
 
@@ -107,6 +109,7 @@ export default function Chatroom({ match }) {
             createChat();
         }
         createMessage();
+        setMsg("");
         socket.emit("message", {
             messages: [...messages, { text: msg, sender: user }],
             roomName: match.params.partnerId,
@@ -114,10 +117,12 @@ export default function Chatroom({ match }) {
     };
 
     const DisplayMessages = () => (
-        <div className="messages">
-            {messages.map((message, i) => (
-                <Message key={i} message={message} />
-            ))}
+        <div className="messages flex-1 px-4">
+            <Scrollbars>
+                {messages.map((message, i) => (
+                    <Message key={i} message={message} />
+                ))}
+            </Scrollbars>
         </div>
     );
 
@@ -125,25 +130,18 @@ export default function Chatroom({ match }) {
     const handleMsgChange = (e) => setMsg(e.target.value);
 
     const SendMessage = () => (
-        <div className="send-message">
-            <TextField
-                value={msg}
-                onChange={handleMsgChange}
-                variant="outlined"
-                className="message-input"
-                multiline
-                rowsMax={3}
-            />
-            {/* <Button
-                onClick={() => {
-                    socket.emit("message", {
-                        messages: [...messages, { text: msg, sender: user }],
-                        roomName: match.params.partnerId,
-                    });
-                }}
-            >
-                Test Socket
-            </Button> */}
+        <div className="send-message  flex">
+            <div className="flex-1">
+                <TextField
+                    value={msg}
+                    onChange={handleMsgChange}
+                    variant="outlined"
+                    className="message-input"
+                    multiline
+                    rowsMax={3}
+                    fullWidth={true}
+                />
+            </div>
             <Button variant="contained" onClick={sendMessage} color="primary">
                 Send Message
             </Button>
@@ -151,18 +149,22 @@ export default function Chatroom({ match }) {
     );
 
     return (
-        <div className="chatroom-page">
+        <div
+            className="chatroom-page w-5/6 m-auto shadow-md flex flex-col"
+            style={{ height: "540px", maxHeight: "540px" }}
+        >
             <h1
-                className="current-page-user-name
-            "
+                className="current-page-user-name text-center text-4xl py-5 cursor-pointer"
                 onClick={() =>
                     (window.location = `/user/${currentPageUser._id}`)
                 }
             >
-                {currentPageUser.name} Chat
+                {currentPageUser.name}
             </h1>
-            {DisplayMessages()}
-            {SendMessage()}
+            <div className="flex flex-col flex-1">
+                {DisplayMessages()}
+                {SendMessage()}
+            </div>
         </div>
     );
 }

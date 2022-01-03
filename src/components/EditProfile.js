@@ -121,23 +121,30 @@ export default function EditProfile() {
         <Container component="main" maxWidth="xs" className="edit-profile-page">
             <CssBaseline />
             <div className={classes.paper}>
-                <Avatar src={user.profilePictureId} className="profile-pic" />
-                <Typography component="h1" variant="h5">
-                    Update Profile
-                </Typography>
+                <div className="mb-4">
+                    <Avatar
+                        src={user.profilePictureId}
+                        className="profile-pic"
+                    />
+                </div>
+                <div className="my-8">
+                    <Typography component="h1" variant="h5">
+                        Update Profile
+                    </Typography>
+                </div>
                 <form
                     className={classes.form}
                     noValidate
                     onSubmit={updateProfile}
                 >
-                    <Grid container spacing={2}>
+                    <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <TextField
                                 autoComplete="name"
                                 name="name"
                                 variant="outlined"
                                 fullWidth
-                                label="Name"
+                                label="New Name"
                                 autoFocus
                                 value={name}
                                 onChange={updateNameValue}
@@ -147,13 +154,14 @@ export default function EditProfile() {
                             <TextField
                                 variant="outlined"
                                 fullWidth
-                                label="Password"
+                                label="New Password"
                                 type="password"
                                 autoComplete="current-password"
                                 value={password}
                                 onChange={updatePasswordValue}
                             />
                         </Grid>
+
                         <Grid item xs={12}>
                             <InputLabel>Target Language</InputLabel>
                             <Select
@@ -168,7 +176,9 @@ export default function EditProfile() {
                             </Select>
                         </Grid>
                         <Grid item xs={12}>
-                            <InputLabel>Change Profile Picture</InputLabel>
+                            <div className="mb-6">
+                                <InputLabel>Change Profile Picture</InputLabel>
+                            </div>
                             <DropzoneArea
                                 filesLimit={1}
                                 showPreviews={true}
@@ -184,6 +194,7 @@ export default function EditProfile() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        style={{ background: "#3d5af1", padding: "0.5rem " }}
                     >
                         Save Changes
                     </Button>

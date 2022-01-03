@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import client from "../feathers";
 import Post from "./Post";
-import Typography from "@material-ui/core/Typography";
+import topography from "../images/topography.svg";
 
-import "../styles/targetLanguagePosts.scss";
+// import "../styles/targetLanguagePosts.scss";
 
 export default function TargetLanguagePosts() {
     const [posts, setPosts] = useState([]);
@@ -31,23 +31,33 @@ export default function TargetLanguagePosts() {
     }, []);
 
     return (
-        <div className="target-language-posts-page">
-            <div className="main">
-                <Typography variant="h4">Target Language Posts</Typography>
-                {posts.map((post) => (
-                    <Post
-                        key={post._id}
-                        profilePictureId={post.user.profilePictureId}
-                        name={post.user.name}
-                        createdAt={post.createdAt}
-                        postText={post.text}
-                        numberOfComments={post.comments.length}
-                        numberOfLikes={post.likes.length}
-                        isOwnPost={post.user._id === user._id}
-                        postId={post._id}
-                        user={post.user}
-                    />
-                ))}
+        <div className="relative">
+            <div
+                className="absolute inset-0 w-full h-full bgImage -z-100 bg-cover pointer-events-none  opacity-5"
+                style={{ minHeight: "550px" }}
+            ></div>
+            <div className=" w-3/4 m-auto  relative">
+                <div className="main">
+                    <h4 className="text-4xl pt-5 mb-10 text-center">
+                        Target Language Posts
+                    </h4>
+                    <div className="w-full flex flex-col gap-4 mb-4">
+                        {posts.map((post) => (
+                            <Post
+                                key={post._id}
+                                profilePictureId={post.user.profilePictureId}
+                                name={post.user.name}
+                                createdAt={post.createdAt}
+                                postText={post.text}
+                                numberOfComments={post.comments.length}
+                                numberOfLikes={post.likes.length}
+                                isOwnPost={post.user._id === user._id}
+                                postId={post._id}
+                                user={post.user}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );

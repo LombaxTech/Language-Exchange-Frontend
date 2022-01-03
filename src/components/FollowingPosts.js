@@ -42,6 +42,8 @@ export default function FollowingPosts() {
                 createdAt: post.createdAt.toString(),
             }));
 
+            console.log(_posts);
+
             setPosts(_posts);
         } catch (error) {
             console.log(error);

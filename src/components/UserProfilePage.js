@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 
-import "../styles/userprofilepage.scss";
+// import "../styles/userprofilepage.scss";
 
 export default function UserProfilePage({ match }) {
     const currentPageUserId = match.params.userId;
@@ -104,57 +104,64 @@ export default function UserProfilePage({ match }) {
     };
 
     return (
-        <div className="user-profile-page">
-            <Typography variant="h4">{currentPageUser.name}</Typography>
-            <Avatar
-                src={currentPageUser.profilePictureId}
-                className="user-profile-pic"
-            />
-            <div className="message-follow">
-                <Button
+        <div className="user-profile-page  px-4 mt-20 flex flex-col items-center gap-10">
+            <h4 className="text-5xl">{currentPageUser.name}</h4>
+            <div className="w-48 h-48">
+                <Avatar
+                    src={currentPageUser.profilePictureId}
+                    style={{ width: "100%", height: "100%" }}
+                />
+            </div>
+            <div className="flex gap-6">
+                <button
+                    className="px-6 py-1 rounded-lg  bg-teal text-white hover:bg-white  hover:border-2 hover:border-teal hover:text-teal"
                     variant="contained"
                     onClick={() =>
                         (window.location = `/chat/${currentPageUserId}`)
                     }
                 >
                     <Typography variant="h5">Message</Typography>
-                </Button>
+                </button>
 
                 {!following && (
-                    <Button
+                    <button
                         variant="contained"
                         onClick={follow}
-                        className="follow-button"
+                        className="px-6 py-1 rounded-lg  bg-teal text-white hover:bg-white  hover:border-2 hover:border-teal hover:text-teal"
                     >
                         <Typography variant="h5">Follow</Typography>
-                    </Button>
+                    </button>
                 )}
                 {following && (
-                    <Button
+                    <button
                         variant="outlined"
                         onClick={unfollow}
-                        className="unfollow-button"
+                        className="px-6 py-1 rounded-lg  bg-teal text-white hover:bg-white  hover:border-2 hover:border-teal hover:text-teal"
                     >
                         <Typography variant="h5">Unfollow</Typography>
-                    </Button>
+                    </button>
                 )}
             </div>
-            <Typography variant="h4">Posts</Typography>
-            {posts.map((post) => (
-                <Post
-                    key={post._id}
-                    profilePictureId={post.user.profilePictureId}
-                    name={post.user.name}
-                    createdAt={post.createdAt}
-                    postText={post.text}
-                    numberOfComments={post.comments.length}
-                    numberOfLikes={post.likes.length}
-                    isOwnPost={post.user._id === user._id}
-                    postId={post._id}
-                    user={post.user}
-                />
-            ))}
-            {posts.length === 0 && <h2>No posts to show...</h2>}
+            <div className="flex flex-col justify-center items-center w-3/4">
+                <h4 className="text-4xl my-10">Posts</h4>
+                <div className="w-full flex flex-col gap-8">
+                    {posts.map((post) => (
+                        <Post
+                            key={post._id}
+                            profilePictureId={post.user.profilePictureId}
+                            name={post.user.name}
+                            createdAt={post.createdAt}
+                            postText={post.text}
+                            numberOfComments={post.comments.length}
+                            numberOfLikes={post.likes.length}
+                            isOwnPost={post.user._id === user._id}
+                            postId={post._id}
+                            user={post.user}
+                        />
+                    ))}
+                    {posts.length === 0 && <h2>No posts to show...</h2>}
+                </div>
+            </div>
         </div>
     );
 }

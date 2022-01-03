@@ -138,7 +138,7 @@ export default function Signup() {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
+                <Avatar style={{ background: "#3d5af1" }}>
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
@@ -190,43 +190,49 @@ export default function Signup() {
                                 className="white-bg"
                             />
                         </Grid>
+                        <div className=" flex w-full justify-between my-6 px-4">
+                            <div className=" ">
+                                <InputLabel>Native Language</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={nativeLanguage}
+                                    onChange={handleNativeLanguageChange}
+                                    className="white-bg"
+                                >
+                                    <MenuItem value={"Eng"}>English</MenuItem>
+                                    <MenuItem value={"Jpn"}>Japanese</MenuItem>
+                                    <MenuItem value={"Fr"}>French</MenuItem>
+                                </Select>
+                            </div>
+                            <div className="">
+                                <InputLabel>Target Language</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={targetLanguage}
+                                    onChange={handleTargetLanguageChange}
+                                    className="white-bg"
+                                >
+                                    <MenuItem value={"Eng"}>English</MenuItem>
+                                    <MenuItem value={"Jpn"}>Japanese</MenuItem>
+                                    <MenuItem value={"Fr"}>French</MenuItem>
+                                </Select>
+                            </div>
+                        </div>
                         <Grid item xs={12}>
-                            <InputLabel>Native Language</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={nativeLanguage}
-                                onChange={handleNativeLanguageChange}
-                                className="white-bg"
-                            >
-                                <MenuItem value={"Eng"}>English</MenuItem>
-                                <MenuItem value={"Jpn"}>Japanese</MenuItem>
-                                <MenuItem value={"Fr"}>French</MenuItem>
-                            </Select>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <InputLabel>Target Language</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={targetLanguage}
-                                onChange={handleTargetLanguageChange}
-                                className="white-bg"
-                            >
-                                <MenuItem value={"Eng"}>English</MenuItem>
-                                <MenuItem value={"Jpn"}>Japanese</MenuItem>
-                                <MenuItem value={"Fr"}>French</MenuItem>
-                            </Select>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <InputLabel>Upload Profile Picture</InputLabel>
-                            <DropzoneArea
-                                filesLimit={1}
-                                showPreviews={true}
-                                showPreviewsInDropzone={false}
-                                dropzoneClass={classes.dropzone}
-                                onChange={handleFileUpload}
-                            />
+                            <div className="mb-6">
+                                <InputLabel>Upload Profile Picture</InputLabel>
+                            </div>
+                            <div className="bg-yellow-200 ">
+                                <DropzoneArea
+                                    filesLimit={1}
+                                    showPreviews={true}
+                                    showPreviewsInDropzone={false}
+                                    dropzoneClass={classes.dropzone}
+                                    onChange={handleFileUpload}
+                                />
+                            </div>
                         </Grid>
                     </Grid>
                     <Button
@@ -235,6 +241,7 @@ export default function Signup() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        style={{ background: "#3d5af1", padding: "0.5rem" }}
                     >
                         Sign Up
                     </Button>
@@ -247,7 +254,7 @@ export default function Signup() {
                     </Grid>
                 </form>
             </div>
-            <Box mt={5}>
+            <Box mt={5} mb={5}>
                 <Copyright />
             </Box>
         </Container>
