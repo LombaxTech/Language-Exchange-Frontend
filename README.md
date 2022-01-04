@@ -7,7 +7,7 @@
 
 <br>
 <!-- Short intro -->
-<p>RKLanguages is a language learning based social network. It allows people to interact with native speakers of their target language.</p>
+<p> <a href="https://rk-languages.netlify.app/"> RKLanguages </a> is a language learning based social network. It allows people to interact with native speakers of their target language.</p>
 
 <p>(This is the frontend repository for RKLanguages. For the backend repository, <a href="https://github.com/LombaxTech/Language-Exchange-Backend"> click here </a>)</p>
 </div>
