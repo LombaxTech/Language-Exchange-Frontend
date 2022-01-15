@@ -170,9 +170,16 @@ export default function EditProfile() {
                                 value={targetLanguage}
                                 onChange={handleTargetLanguageChange}
                             >
-                                <MenuItem value={"Eng"}>English</MenuItem>
-                                <MenuItem value={"Jpn"}>Japanese</MenuItem>
-                                <MenuItem value={"Fr"}>French</MenuItem>
+                                <MenuItem value={"Engish"}>English</MenuItem>
+                                <MenuItem value={"Japanese"}>Japanese</MenuItem>
+                                <MenuItem value={"Korean"}>Korean</MenuItem>
+                                <MenuItem value={"Chinese"}>Chinese</MenuItem>
+                                <MenuItem value={"Spanish"}>Spanish</MenuItem>
+                                <MenuItem value={"German"}>German</MenuItem>
+                                <MenuItem value={"French"}>French</MenuItem>
+                                <MenuItem value={"Arabic"}>Arabic</MenuItem>
+                                <MenuItem value={"Russian"}>Russian</MenuItem>
+                                <MenuItem value={"Hindi"}>Hindi</MenuItem>
                             </Select>
                         </Grid>
                         <Grid item xs={12}>
