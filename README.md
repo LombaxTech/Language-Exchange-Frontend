@@ -21,19 +21,19 @@
 
 ## Try It Out
 
-1. Clone The Repo
+1. Clone The Repository
 
 ```sh
 git clone https://github.com/LombaxTech/Language-Exchange-Frontend.git
 ```
 
-2. Install NPM Packages
+2. Install Dependencies
 
 ```sh
 npm install
 ```
 
-3. Run It Locally
+3. Run The App
 
 ```sh
 npm start
